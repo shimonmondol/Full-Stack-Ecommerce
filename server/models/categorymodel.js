@@ -13,6 +13,10 @@ const categorySchema = new Schema(
       type: String,
       default: false,
     },
+    stock: {
+      type: String,
+      default: false,
+    },
     product: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "Product",
