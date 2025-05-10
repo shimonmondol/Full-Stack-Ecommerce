@@ -77,6 +77,7 @@ const Footer = ({
             </ul>
           </div>
         </footer>
+        <h1>Voss</h1>
       </div>
     </section>
   );
