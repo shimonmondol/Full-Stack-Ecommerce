@@ -108,7 +108,7 @@ async function deleteProductController(req, res) {
 async function singleProductController(req, res) {
   const { id } = req.params;
   try {
-    const singleproduct = await productModel.findOne({ _id: id });
+    const singleproduct = await productModel.findOne({ _id: id.populate("category") });
 
     return res.status(200).json({
       msg: "single product fetch success",
