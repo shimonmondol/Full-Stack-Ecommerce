@@ -1,129 +1,110 @@
-import React from "react";
-import { Link } from "react-router";
+import React, { useState } from "react";
+import axios from 'axios';
 
 const Signup = () => {
+
+  const [fullname, setFullname]= useState('')
+  const [email, setEmail]= useState('')
+  const [password, setPassword]= useState('')
+
+  const handlesignup =(e)=>{
+    e.preventDefault()
+    axios.post("http://localhost:3000/auth/signup",{
+      name: fullname,
+      email,
+      password
+    }).then ((res)=>{  
+      console.log(res)
+    }).catch ((err)=>{
+      console.log(err)
+    })
+  }
   return (
     <div>
-      <div className="bg-dark">
-        <div className="min-h-screen flex flex-col items-center justify-center py-6 px-4">
-          <div className="max-w-md w-full">
-            <div className="p-8 rounded-2xl bg-white shadow">
-              <h2 className="text-slate-900 text-center text-3xl font-semibold">
-                Signup
-              </h2>
-              <form className="mt-12 space-y-6">
+      <section className="bg-white dark:bg-black">
+        <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
+          <div className="w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700">
+            <div className="p-6 space-y-4 md:space-y-6 sm:p-8">
+              <h1 className="text-2xl text-center font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
+                Sign Up
+              </h1>
+              <form onSubmit={handlesignup} className="space-y-4 md:space-y-6" action="#">
                 <div>
-                  <label className="text-slate-800 text-sm font-medium mb-2 block">
-                    Name
+                  <label
+                    htmlFor="email"
+                    className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                  >
+                    Full Name
                   </label>
-                  <div className="relative flex items-center">
-                    <input
-                      name="Full Name"
-                      type="text"
-                      required=""
-                      className="w-full text-slate-800 text-sm border border-slate-300 px-4 py-3 rounded-md outline-blue-600"
-                      placeholder="Full Name"
-                    />
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      fill="#bbb"
-                      stroke="#bbb"
-                      className="w-4 h-4 absolute right-4 cursor-pointer"
-                      viewBox="0 0 24 24"
-                    >
-                      <circle cx={10} cy={7} r={6} data-original="#000000" />
-                      <path
-                        d="M14 15H6a5 5 0 0 0-5 5 3 3 0 0 0 3 3h12a3 3 0 0 0 3-3 5 5 0 0 0-5-5zm8-4h-2.59l.3-.29a1 1 0 0 0-1.42-1.42l-2 2a1 1 0 0 0 0 1.42l2 2a1 1 0 0 0 1.42 0 1 1 0 0 0 0-1.42l-.3-.29H22a1 1 0 0 0 0-2z"
-                        data-original="#000000"
-                      />
-                    </svg>
-                  </div>
+                  <input onChange={(e)=>setFullname(e.target.value)}
+                    type="Full Name"
+                    name="name"
+                    id="name"
+                    className="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                    placeholder="Shimon Mondol"
+                    required=""
+                  />
                 </div>
                 <div>
-                  <label className="text-slate-800 text-sm font-medium mb-2 block">
-                    Email
+                  <label
+                    htmlFor="email"
+                    className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                  >
+                    Your email
                   </label>
-                  <div className="relative flex items-center">
-                    <input
-                      name="Email"
-                      type="text"
-                      required=""
-                      className="w-full text-slate-800 text-sm border border-slate-300 px-4 py-3 rounded-md outline-blue-600"
-                      placeholder="Enter Email"
-                    />
-                    <svg
-                      className="w-20 h-20 absolute top-4 left-88 cursor-pointer"
-                      xmlns="http://www.w3.org/2000/svg"
-                      viewBox="0 0 128 128"
-                      fill="#bbb"
-                      stroke="#bbb"
-                    >
-                      <path
-                        fill="currentColor"
-                        d="M22 6c0-1.1-.9-2-2-2H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2zm-2 0l-8 5l-8-5zm0 12H4V8l8 5l8-5z"
-                      ></path>
-                    </svg>
-                  </div>
+                  <input onChange={(e)=>setEmail(e.target.value)}
+                    type="email"
+                    name="email"
+                    id="email"
+                    className="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                    placeholder="name@company.com"
+                    required=""
+                  />
                 </div>
                 <div>
-                  <label className="text-slate-800 text-sm font-medium mb-2 block">
+                  <label
+                    htmlFor="password"
+                    className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                  >
                     Password
                   </label>
-                  <div className="relative flex items-center">
-                    <input
-                      name="password"
-                      type="password"
-                      required=""
-                      className="w-full text-slate-800 text-sm border border-slate-300 px-4 py-3 rounded-md outline-blue-600"
-                      placeholder="Enter Password"
-                    />
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      fill="#bbb"
-                      stroke="#bbb"
-                      className="w-4 h-4 absolute right-4 cursor-pointer"
-                      viewBox="0 0 128 128"
-                    >
-                      <path
-                        d="M64 104C22.127 104 1.367 67.496.504 65.943a4 4 0 0 1 0-3.887C1.367 60.504 22.127 24 64 24s62.633 36.504 63.496 38.057a4 4 0 0 1 0 3.887C126.633 67.496 105.873 104 64 104zM8.707 63.994C13.465 71.205 32.146 96 64 96c31.955 0 50.553-24.775 55.293-31.994C114.535 56.795 95.854 32 64 32 32.045 32 13.447 56.775 8.707 63.994zM64 88c-13.234 0-24-10.766-24-24s10.766-24 24-24 24 10.766 24 24-10.766 24-24 24zm0-40c-8.822 0-16 7.178-16 16s7.178 16 16 16 16-7.178 16-16-7.178-16-16-16z"
-                        data-original="#000000"
-                      />
-                    </svg>
-                  </div>
+                  <input onChange={(e)=>setPassword(e.target.value)}
+                    type="password"
+                    name="password"
+                    id="password"
+                    placeholder="••••••••"
+                    className="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                    required=""
+                  />
                 </div>
-                <div className="flex flex-wrap items-center justify-between gap-4">
-                  <div className="text-sm">
-                    <a
-                      href="jajvascript:void(0);"
-                      className="text-blue-600 hover:underline font-semibold"
-                    >
-                      Forgot your password?
-                    </a>
-                  </div>
-                </div>
-                <div className="!mt-12">
-                  <button
-                    type="button"
-                    className="w-full cursor-pointer py-2 px-4 text-[15px] font-medium tracking-wide rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none"
+                <div className="flex items-center justify-between">
+                  <a
+                    href="#"
+                    className="text-sm font-medium text-primary-600 hover:underline dark:text-primary-500"
                   >
-                    Signup
-                  </button>
+                    Forgot password?
+                  </a>
                 </div>
-                <p className="text-slate-800 text-sm !mt-6 text-center">
-                  Don't have an account?
-                  <Link
-                    to="/login"
-                    href="javascript:void(0);"
-                    className="text-blue-600 hover:underline ml-1 whitespace-nowrap font-semibold cursor-pointer"
+                <button
+                  type="submit"
+                  className="w-full text-white bg-black cursor-pointer hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
+                >
+                  Sign up
+                </button>
+                <p className="text-sm font-light text-gray-500 dark:text-gray-400">
+                  Don’t have an account yet?{" "}
+                  <a
+                    href="/login"
+                    className="font-medium text-primary-600 hover:underline dark:text-primary-500"
                   >
-                    Log in
-                  </Link>
+                    Login
+                  </a>
                 </p>
               </form>
             </div>
           </div>
         </div>
-      </div>
+      </section>
     </div>
   );
 };

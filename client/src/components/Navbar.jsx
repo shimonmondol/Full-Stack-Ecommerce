@@ -118,10 +118,10 @@ const Navbar = ({
 
                     <div className="flex flex-col gap-3">
                       <Button asChild variant="outline">
-                        <a href={auth.login.url}>{auth.login.title}</a>
+                        <Link to={auth.login.url}>{auth.login.title}</Link>
                       </Button>
                       <Button asChild>
-                        <a href={auth.signup.url}>{auth.signup.title}</a>
+                        <Link to={auth.signup.url}>{auth.signup.title}</Link>
                       </Button>
                     </div>
                   </div>

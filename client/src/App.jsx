@@ -1,9 +1,6 @@
-import React from "react";
-import Navbar from "./components/navbar";
 import { ThemeProvider } from "@/components/theme-provider";
 import Banner from "./components/Banner";
 import Categories from "./components/Categories";
-import Footer from "./components/Footer";
 import Featherproduct from "./components/Featherproduct";
 const App = () => {
   return (

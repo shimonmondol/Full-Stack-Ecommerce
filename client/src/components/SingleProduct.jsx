@@ -3,10 +3,9 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router";
 import { FaBangladeshiTakaSign } from "react-icons/fa6";
 
-const SingleProduct = () => {
-  const [SingleProduct, setSingleProduct] = useState({});
+const SingleProduct = ({}) => {
   let { id } = useParams();
-  console.log(id);
+  const [SingleProduct, setSingleProduct] = useState({});
 
   useEffect(() => {
     function getSingleProduct() {
@@ -21,6 +20,8 @@ const SingleProduct = () => {
     }
     getSingleProduct();
   }, []);
+
+  console.log(SingleProduct)
 
   return (
     <section className="py-30 bg-white dark:bg-gray-900 antialiased">
