@@ -21,7 +21,7 @@ const SingleProduct = ({}) => {
     getSingleProduct();
   }, []);
 
-  console.log(SingleProduct)
+  console.log(SingleProduct);
 
   return (
     <section className="py-30 bg-white dark:bg-gray-900 antialiased">
