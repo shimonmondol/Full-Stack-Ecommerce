@@ -15,6 +15,9 @@ import Card from "./pages/Card.jsx";
 import Checkout from "./pages/Checkout.jsx";
 import Login from "./pages/Login.jsx";
 import Signup from "./pages/Signup.jsx";
+import Otpverify from "./pages/Otpverify.jsx";
+import store from "../store.js";
+import { Provider } from "react-redux";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -28,13 +31,15 @@ const router = createBrowserRouter(
       </Route>
       <Route path="/login" element={<Login />} />
       <Route path="/signup" element={<Signup />} />
-
+      <Route path="/otp" element={<Otpverify />} />
     </Route>
   )
 );
 
 createRoot(document.getElementById("root")).render(
-  <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
-    <RouterProvider router={router} />
-  </ThemeProvider>
+  <Provider store={store}>
+    <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
+      <RouterProvider router={router} />
+    </ThemeProvider>
+  </Provider>
 );

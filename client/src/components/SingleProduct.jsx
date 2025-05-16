@@ -29,12 +29,12 @@ const SingleProduct = ({}) => {
         <div className="lg:grid lg:grid-cols-2 lg:gap-8 xl:gap-16">
           <div className="shrink-0 max-w-md lg:max-w-lg mx-auto">
             <img
-              className="w-[250px] dark:hidden"
+              className="rounded-2xl w-[250px] dark:hidden"
               src={SingleProduct.image}
               alt=""
             />
             <img
-              className="w-[250px] hidden dark:block"
+              className="rounded-2xl w-[250px] hidden dark:block"
               src={SingleProduct.image}
               alt=""
             />

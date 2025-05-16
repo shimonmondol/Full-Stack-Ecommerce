@@ -8,13 +8,13 @@ async function sendEmail(email, otp) {
     },
   });
   const info = await transporter.sendMail({
-    from: process.env.AUTH_EMAIL, // sender address
+    from: `"Ecommerce" <${process.env.AUTH_EMAIL}>`,
     to: email, // list of receivers
-    subject: "Ecommerce", // Subject line
+    subject: "Ecommerce-OTP", // Subject line
     text: "Please Verify Your Account", // plain text body
     html: `<div>
       <h1 style="color: blue; text-align: center; padding-top: 20px">
-        Sir, Your OTP Verification Code is
+        Your OTP Verification Code is
       </h1>
       <div>
         <h1

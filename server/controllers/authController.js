@@ -1,6 +1,6 @@
 const { sendEmail } = require("../helpers/sendEmail");
 const userModel = require("../models/userModel");
-const jwt = require('jsonwebtoken');
+const jwt = require("jsonwebtoken");
 const otpGenerator = require("otp-generator");
 const bcrypt = require("bcrypt");
 const aleaRNGFactory = require("number-generator/lib/aleaRNGFactory");
@@ -46,7 +46,7 @@ async function SignupController(req, res) {
   }
 }
 
-// Portfolio 
+// Portfolio
 
 async function LoginController(req, res) {
   const { email, password } = req.body;
@@ -61,20 +61,28 @@ async function LoginController(req, res) {
         async function (err, result) {
           const user = await userModel.findOne({ email }).select("-password");
           if (result) {
-            if (existinguser.role =="user"){
+            if (existinguser.role == "user") {
               const token = jwt.sign({ user }, process.env.JWT_Secret);
               return res
-              .status(200)
-              .json({ success: true, msg: "User Login Successfull", 
-              data: user,
-              token :token});
-            } else if(existinguser.role == "admin"){
-              const token = jwt.sign({ user }, process.env.JWT_Secret, { expiresIn: '1m' });
+                .status(200)
+                .json({
+                  success: true,
+                  msg: "User Login Successfull",
+                  data: user,
+                  token: token,
+                });
+            } else if (existinguser.role == "admin") {
+              const token = jwt.sign({ user }, process.env.JWT_Secret, {
+                expiresIn: "1m",
+              });
               return res
-              .status(200)
-              .json({ success: true, msg: "Admin Login Successfull", 
-              data: user,
-              token :token });
+                .status(200)
+                .json({
+                  success: true,
+                  msg: "Admin Login Successfull",
+                  data: user,
+                  token: token,
+                });
             }
           } else {
             return res

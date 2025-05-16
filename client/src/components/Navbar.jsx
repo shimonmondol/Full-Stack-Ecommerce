@@ -24,6 +24,7 @@ import {
 } from "@/components/ui/sheet";
 import { ModeToggle } from "./mode-toggle";
 import { Link } from "react-router";
+import { useSelector } from "react-redux";
 
 const Navbar = ({
   logo = {
@@ -45,6 +46,8 @@ const Navbar = ({
     signup: { title: "Sign up", url: "/signup" },
   },
 }) => {
+  const data = useSelector((state) => state.authSlice.value);
+
   return (
     <section
       className="py-4 fixed w-full z-50
@@ -68,15 +71,19 @@ const Navbar = ({
               </NavigationMenu>
             </div>
           </div>
-          <div className="flex gap-2">
-            <Button asChild variant="outline" size="sm">
-              <a href={auth.login.url}>{auth.login.title}</a>
-            </Button>
-            <Button asChild size="sm">
-              <a href={auth.signup.url}>{auth.signup.title}</a>
-            </Button>
-            <ModeToggle />
-          </div>
+          {data ? (
+            <button className="bg-green-500 cursor-pointer rounded-md">{data.name}</button>
+          ) : (
+            <div className="flex gap-2">
+              <Button asChild variant="outline" size="sm">
+                <a href={auth.login.url}>{auth.login.title}</a>
+              </Button>
+              <Button asChild size="sm">
+                <a href={auth.signup.url}>{auth.signup.title}</a>
+              </Button>
+              <ModeToggle />
+            </div>
+          )}
         </nav>
 
         {/* Mobile Menu */}
