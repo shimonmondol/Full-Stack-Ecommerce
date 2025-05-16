@@ -1,10 +1,13 @@
 import axios from "axios";
-import React, { useEffect, useState } from "react";
-import { useParams } from "react-router";
+import { useEffect, useState } from "react";
+import { useParams, useNavigate } from "react-router";
 import { FaBangladeshiTakaSign } from "react-icons/fa6";
+import { useSelector } from "react-redux";
 
 const SingleProduct = ({}) => {
   let { id } = useParams();
+  const data = useSelector((state) => state.authSlice.value);
+  const navigate = useNavigate();
   const [SingleProduct, setSingleProduct] = useState({});
 
   useEffect(() => {
@@ -21,7 +24,25 @@ const SingleProduct = ({}) => {
     getSingleProduct();
   }, []);
 
-  console.log(SingleProduct);
+  const handleAddtoCard = () => {
+    if (data) {
+      const baseurl = import.meta.env.VITE_BASE_URL;
+      axios
+        .post(`${baseurl}/card/addtocard`, {
+          productid: id,
+          // quantity,
+          userid: data._id,
+        })
+        .then((res) => {
+          console.log(res);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    } else {
+      navigate("/login");
+    }
+  };
 
   return (
     <section className="py-30 bg-white dark:bg-gray-900 antialiased">
@@ -123,9 +144,10 @@ const SingleProduct = ({}) => {
             </div>
             <div className="mt-6 sm:gap-4 sm:items-center sm:flex sm:mt-8">
               <button
+                onClick={handleAddtoCard}
                 href="#"
                 title=""
-                className="text-white mt-4 sm:mt-0 bg-black hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 dark:bg-primary-600 dark:hover:bg-primary-700 focus:outline-none dark:focus:ring-primary-800 flex items-center justify-center"
+                className="text-white mt-4 sm:mt-0 bg-black hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 dark:bg-primary-600 dark:hover:bg-primary-700 focus:outline-none dark:focus:ring-primary-800 flex items-center justify- cursor-pointer"
                 role="button"
               >
                 <svg

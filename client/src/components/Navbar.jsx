@@ -24,7 +24,9 @@ import {
 } from "@/components/ui/sheet";
 import { ModeToggle } from "./mode-toggle";
 import { Link } from "react-router";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { useState } from "react";
+import { userLoginInfo } from "../../slices/userslice";
 
 const Navbar = ({
   logo = {
@@ -35,10 +37,7 @@ const Navbar = ({
 
   menu = [
     { title: "Home", url: "/" },
-    {
-      title: "Shop",
-      url: "/shop",
-    },
+    { title: "Shop", url: "/shop" },
   ],
 
   auth = {
@@ -47,6 +46,17 @@ const Navbar = ({
   },
 }) => {
   const data = useSelector((state) => state.authSlice.value);
+  const [logoutmodal, setLogoutModal] = useState(false);
+  const dispatch = useDispatch();
+
+  const handleLogoutModal = () => {
+    setLogoutModal(true);
+  };
+
+  const handleLogout = () => {
+    localStorage.removeItem("userdata");
+    dispatch(userLoginInfo(null));
+  };
 
   return (
     <section
@@ -58,10 +68,10 @@ const Navbar = ({
         <nav className="hidden justify-between lg:flex">
           <div className="flex items-center gap-6">
             {/* Logo */}
-            <Link href={logo.url} className="flex items-center gap-2">
-              <span className="text-2xl font-semibold tracking-tighter">
+            <Link to={logo.url} className="flex items-center gap-2">
+              <Link className="text-2xl font-semibold tracking-tighter">
                 {logo.title}
-              </span>
+              </Link>
             </Link>
             <div className="flex items-center">
               <NavigationMenu>
@@ -71,19 +81,41 @@ const Navbar = ({
               </NavigationMenu>
             </div>
           </div>
-          {data ? (
-            <button className="bg-green-500 cursor-pointer rounded-md">{data.name}</button>
-          ) : (
-            <div className="flex gap-2">
-              <Button asChild variant="outline" size="sm">
-                <a href={auth.login.url}>{auth.login.title}</a>
-              </Button>
-              <Button asChild size="sm">
-                <a href={auth.signup.url}>{auth.signup.title}</a>
-              </Button>
+          <div className="flex">
+            <div className="mr-3 mt-[6px]">
               <ModeToggle />
             </div>
-          )}
+            <div>
+              {data ? (
+                <div className="flex items-center">
+                  {logoutmodal ? (
+                    <button
+                      onClick={handleLogout}
+                      className="cursor-pointer block text-white px-3 py-2 bg-red-500 rounded-md mt-1"
+                    >
+                      Logout
+                    </button>
+                  ) : (
+                    <button
+                      onClick={handleLogoutModal}
+                      className="mt-1 bg-green-500 text-white rounded-md cursor-pointer px-3 py-2"
+                    >
+                      <h1>{data.name}</h1>
+                    </button>
+                  )}
+                </div>
+              ) : (
+                <div className="flex gap-2 mt-2">
+                  <Button asChild variant="outline" size="sm">
+                    <Link to={auth.login.url}>{auth.login.title}</Link>
+                  </Button>
+                  <Button asChild size="sm">
+                    <Link to={auth.signup.url}>{auth.signup.title}</Link>
+                  </Button>
+                </div>
+              )}
+            </div>
+          </div>
         </nav>
 
         {/* Mobile Menu */}
@@ -122,14 +154,44 @@ const Navbar = ({
                     >
                       {menu.map((item) => renderMobileMenuItem(item))}
                     </Accordion>
-
-                    <div className="flex flex-col gap-3">
-                      <Button asChild variant="outline">
-                        <Link to={auth.login.url}>{auth.login.title}</Link>
-                      </Button>
-                      <Button asChild>
-                        <Link to={auth.signup.url}>{auth.signup.title}</Link>
-                      </Button>
+                    <div className="flex">
+                      <div className="mr-3 mt-[6px]">
+                        <ModeToggle />
+                      </div>
+                      <div>
+                        {data ? (
+                          <div className="flex items-center">
+                            {logoutmodal ? (
+                              <button
+                                onClick={handleLogout}
+                                className="cursor-pointer block text-white px-3 py-2 bg-red-500 rounded-md mt-1"
+                              >
+                                Logout
+                              </button>
+                            ) : (
+                              <button
+                                onClick={handleLogoutModal}
+                                className="mt-1 bg-green-500 text-white rounded-md cursor-pointer px-3 py-2"
+                              >
+                                <h1>{data.name}</h1>
+                              </button>
+                            )}
+                          </div>
+                        ) : (
+                          <div className="flex gap-2 mt-2">
+                            <Button asChild variant="outline" size="sm">
+                              <Link to={auth.login.url}>
+                                {auth.login.title}
+                              </Link>
+                            </Button>
+                            <Button asChild size="sm">
+                              <Link to={auth.signup.url}>
+                                {auth.signup.title}
+                              </Link>
+                            </Button>
+                          </div>
+                        )}
+                      </div>
                     </div>
                   </div>
                 </SheetContent>
