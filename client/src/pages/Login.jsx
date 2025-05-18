@@ -8,38 +8,28 @@ import { userLoginInfo } from "../../slices/userslice"; // Make sure path is cor
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const handleLogin = (e) => {
+  const handleLogin = async (e) => {
     e.preventDefault();
 
-    if (!email || !password) {
-      toast.error("Email and password are required!");
-      return;
-    }
-
-    axios
-      .post("http://localhost:3000/auth/login", { email, password })
-      .then((res) => {
-        toast.success("Login successful!");
-
-        // Save user data or token
-        localStorage.setItem("userdata", JSON.stringify(res.data.data));
-
-        // Update Redux store
-        dispatch(userLoginInfo(res.data.data));
-
-        // Navigate to home/dashboard
-        navigate("/");
-      })
-      .catch((err) => {
-        toast.error(
-          err.response?.data?.message || "Login failed. Please try again."
-        );
-        console.error(err);
+    try {
+      const response = await axios.post("http://localhost:3000/auth/login", {
+        email,
+        password,
       });
+
+      const userData = response.data;
+
+      localStorage.setItem("userdata", JSON.stringify(userData));
+      dispatch(userLoginInfo(userData));
+      toast.success("Login Successful");
+      navigate("/");
+    } catch (error) {
+      console.error("Login failed:", error);
+      toast.error("Invalid email or password");
+    }
   };
 
   return (
