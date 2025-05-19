@@ -45,7 +45,7 @@ const Navbar = ({
     signup: { title: "Sign up", url: "/signup" },
   },
 }) => {
-  const data = useSelector((state) => state.authSlice.value);
+  const data = useSelector((state) => state.authSlice.value?.data);
   const [logoutmodal, setLogoutModal] = useState(false);
   const dispatch = useDispatch();
 

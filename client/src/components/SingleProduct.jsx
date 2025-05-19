@@ -31,7 +31,11 @@ const SingleProduct = ({}) => {
         .post(`${baseurl}/card/addtocard`, {
           productid: id,
           // quantity,
-          userid: data._id,
+          userid: data.data._id,
+        },{
+          headers:{
+            token: data.token,
+          },
         })
         .then((res) => {
           console.log(res);

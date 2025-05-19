@@ -11,7 +11,6 @@ const product = {
 };
 
 export default function Product({ productinfo }) {
-  console.log(productinfo);
   return (
     <div className="group relative space-y-4">
       <figure className="group-hover:opacity-90">

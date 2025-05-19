@@ -17,7 +17,7 @@ const Otpverify = () => {
         otp: otp,
       })
       .then((res) => {
-        navigate("/");
+        navigate("/login");
       })
       .catch((err) => {
         console.log(err);
