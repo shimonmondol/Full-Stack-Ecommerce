@@ -1,5 +1,5 @@
 import axios from "axios";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import toast, { Toaster } from "react-hot-toast";
 import { IoMdClose } from "react-icons/io";
@@ -9,13 +9,13 @@ const Card = () => {
   const data = useSelector((state) => state.authSlice.value?.data);
   const [Cardlist, setCardList] = useState([]);
   const navigate = useNavigate();
+  const baseurl = import.meta.env.VITE_BASE_URL;
 
   useEffect(() => {
     if (!data) {
       navigate("/login");
     }
 
-    const baseurl = import.meta.env.VITE_BASE_URL;
     function getCardList() {
       axios
         .get(`${baseurl}/card/usercardlist/${data?._id}`)
@@ -27,7 +27,24 @@ const Card = () => {
         });
     }
     getCardList();
-  }, []);
+  }, [Cardlist]);
+
+  const handleRemovecard = (id) => {
+    console.log(id, data._id);
+    axios
+      .delete(`${baseurl}/card/usercarddelete/${id}`, {
+        data: {
+          cardid: id,
+          userid: data._id,
+        },
+      })
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
 
   return (
     <div className="pt-20">
@@ -49,7 +66,10 @@ const Card = () => {
                     <div className="rounded-lg relative border border-gray-200 bg-white p-4 shadow-sm dark:border-gray-700 dark:bg-gray-800 md:p-6">
                       <div className="space-y-4 md:flex md:items-center md:justify-between md:gap-6 md:space-y-0">
                         <button className="absolute right-2 top-2">
-                          <IoMdClose className="cursor-pointer text-2xl text-red-500" />
+                          <IoMdClose
+                            onClick={() => handleRemovecard(item._id)}
+                            className="cursor-pointer text-2xl text-red-500"
+                          />
                         </button>
                         <a href="#" className="shrink-0 md:order-1">
                           <img

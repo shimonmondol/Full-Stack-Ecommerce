@@ -33,7 +33,7 @@ const Footer = ({
     },
   ],
 
-  copyright = "© 2025 MERN-2309.com. All rights reserved.",
+  copyright = "© 2025 Baraz.Com. All Rights Reserved.",
 
   bottomLinks = [
     { text: "Terms and Conditions", url: "#" },

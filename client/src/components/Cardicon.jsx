@@ -26,7 +26,7 @@ const Cardicon = () => {
   return (
     <>
       {data && (
-        <div className="bg-gray-700 rounded-xl fixed right-0 top-1/8  flex justify-center items-center cursor-pointer w-[50px] h-[50px] mr-6">
+        <div className="dark:bg-gray-700 bg-amber-400 rounded-xl fixed right-0 top-1/8  flex justify-center items-center cursor-pointer w-[50px] h-[50px] mr-6">
           <Link to="/card">
             <FaCartArrowDown className="w-[30px] h-[30px]" />
           </Link>
