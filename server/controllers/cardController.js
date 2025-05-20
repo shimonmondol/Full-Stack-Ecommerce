@@ -28,4 +28,17 @@ async function getUserByCardController(req, res) {
   }
 }
 
-module.exports = { addtocardController, getUserByCardController };
+async function deleteUserBycardlistController(req, res) {
+  try {
+    const { id } = req.params;
+    
+  } catch (error) {
+    return res.status(500).json({ success: false, msg: error });
+  }
+}
+
+module.exports = {
+  addtocardController,
+  getUserByCardController,
+  deleteUserBycardlistController,
+};
