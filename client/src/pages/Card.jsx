@@ -29,6 +29,14 @@ const Card = () => {
     getCardList();
   }, [Cardlist]);
 
+  const totalprice = Cardlist.reduce(function (total, item) {
+    return total + Math.round(item.productid.sellingprice * item.quantity);
+  }, 0);
+
+  const discountprice = Cardlist.reduce(function (total, item) {
+    return total + Math.round(item.productid.discountprice * item.quantity);
+  }, 0);
+
   const handleRemovecard = (id) => {
     console.log(id, data._id);
     axios
@@ -164,7 +172,12 @@ const Card = () => {
                           </div>
                           <div className="text-end md:order-4 md:w-32">
                             <p className="text-base font-bold text-gray-900 dark:text-white">
-                              {item.productid?.discountprice}
+                              {item.productid?.discountprice * item.quantity}
+                            </p>
+                          </div>
+                          <div className="text-end md:order-4 md:w-32">
+                            <p className="text-base font-bold text-gray-900 dark:text-white">
+                              {item.productid?.sellingprice * item.quantity}
                             </p>
                           </div>
                         </div>
@@ -194,31 +207,23 @@ const Card = () => {
                         Original price
                       </dt>
                       <dd className="text-base font-medium text-gray-900 dark:text-white">
-                        $7,592.00
+                        {totalprice}
                       </dd>
                     </dl>
                     <dl className="flex items-center justify-between gap-4">
                       <dt className="text-base font-normal text-gray-500 dark:text-gray-400">
-                        Savings
+                        Discount Price
                       </dt>
                       <dd className="text-base font-medium text-green-600">
-                        -$299.00
+                        {totalprice - discountprice}
                       </dd>
                     </dl>
                     <dl className="flex items-center justify-between gap-4">
                       <dt className="text-base font-normal text-gray-500 dark:text-gray-400">
-                        Store Pickup
+                        VAT
                       </dt>
-                      <dd className="text-base font-medium text-gray-900 dark:text-white">
-                        $99
-                      </dd>
-                    </dl>
-                    <dl className="flex items-center justify-between gap-4">
-                      <dt className="text-base font-normal text-gray-500 dark:text-gray-400">
-                        Tax
-                      </dt>
-                      <dd className="text-base font-medium text-gray-900 dark:text-white">
-                        $799
+                      <dd className="text-base font-medium text-green-600">
+                        {discountprice > 499999 ? <p>5%</p> : <p>0</p>}
                       </dd>
                     </dl>
                   </div>
@@ -227,7 +232,7 @@ const Card = () => {
                       Total
                     </dt>
                     <dd className="text-base font-bold text-gray-900 dark:text-white">
-                      $8,191.00
+                      {discountprice}
                     </dd>
                   </dl>
                 </div>
