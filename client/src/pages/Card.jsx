@@ -46,6 +46,20 @@ const Card = () => {
       });
   };
 
+  const handlequantityUpdate = (id, action) => {
+    axios
+      .patch(`${baseurl}/card/updatequantity/${id}`, {
+        type: action,
+      })
+      .then((res) => {
+        console.log(res);
+        window.location.reload();
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
   return (
     <div className="pt-20">
       <Toaster />
@@ -89,6 +103,9 @@ const Card = () => {
                         <div className="flex items-center justify-between md:order-3 md:justify-end">
                           <div className="flex items-center">
                             <button
+                              onClick={() =>
+                                handlequantityUpdate(item._id, "dec")
+                              }
                               type="button"
                               id="decrement-button"
                               data-input-counter-decrement="counter-input"
@@ -120,6 +137,9 @@ const Card = () => {
                               required=""
                             />
                             <button
+                              onClick={() =>
+                                handlequantityUpdate(item._id, "inc")
+                              }
                               type="button"
                               id="increment-button"
                               data-input-counter-increment="counter-input"

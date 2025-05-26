@@ -46,13 +46,21 @@ async function deleteUserBycardlistController(req, res) {
 async function UpdatequantityController(req, res) {
   try {
     const { id } = req.params;
-    const { cardid } = req.body;
+    const { type } = req.body;
 
-    await cardmodel.findOneAndUpdate(
-      { _id: id },
-      { $inc: { quantity: 1 } },
-      { new: true }
-    );
+    if (type == "inc") {
+      await cardmodel.findOneAndUpdate(
+        { _id: id },
+        { $inc: { quantity: 1 } },
+        { new: true }
+      );
+    } else {
+      await cardmodel.findOneAndUpdate(
+        { _id: id },
+        { $inc: { quantity: -1 } },
+        { new: true }
+      );
+    }
 
     return res
       .status(200)
