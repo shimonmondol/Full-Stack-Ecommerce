@@ -74,12 +74,12 @@ const Card = () => {
                         <a href="#" className="shrink-0 md:order-1">
                           <img
                             className="h-20 w-20 dark:hidden"
-                            src={item.productid.image}
+                            src={item.productid?.image}
                             alt="imac image"
                           />
                           <img
                             className="hidden h-20 w-20 dark:block"
-                            src={item.productid.image}
+                            src={item.productid?.image}
                             alt="imac image"
                           />
                         </a>
@@ -144,7 +144,7 @@ const Card = () => {
                           </div>
                           <div className="text-end md:order-4 md:w-32">
                             <p className="text-base font-bold text-gray-900 dark:text-white">
-                              {item.productid.discountprice}
+                              {item.productid?.discountprice}
                             </p>
                           </div>
                         </div>
@@ -153,7 +153,7 @@ const Card = () => {
                             href="#"
                             className="text-base font-medium text-gray-900 hover:underline dark:text-white"
                           >
-                            {item.productid.title}
+                            {item.productid?.title}
                           </a>
                         </div>
                       </div>
