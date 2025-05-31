@@ -1,21 +1,79 @@
-import React from "react";
+import axios from "axios";
+import React, { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
+import { useNavigate } from "react-router";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 
 const Checkout = () => {
+  const data = useSelector((state) => state.authSlice.value?.data);
+  const [Cardlist, setCardList] = useState([]);
+  const [divisionlist, SetDivisionlist] = useState([]);
+  const [selectedDivision, setSelectedDivision] = useState("");
+  const [deliveryCharge, setDeliveryCharge] = useState("");
+  const navigate = useNavigate();
+  const baseurl = import.meta.env.VITE_BASE_URL;
+
+  useEffect(() => {
+    if (!data) {
+      navigate("/login");
+    }
+
+    function getCardList() {
+      axios
+        .get(`${baseurl}/card/usercardlist/${data?._id}`)
+        .then((res) => {
+          setCardList(res.data.data);
+        })
+        .catch((err) => {
+          toast.error(err);
+        });
+    }
+    getCardList();
+  }, [Cardlist]);
+
+  useEffect(() => {
+    function getDivision() {
+      axios.get("https://bdapi.vercel.app/api/v.1/division").then((res) => {
+        SetDivisionlist(res.data.data);
+      });
+    }
+    getDivision();
+  }, []);
+
+  const discountprice = Cardlist.reduce(function (total, item) {
+    return total + Math.round(item.productid.discountprice * item.quantity);
+  }, 0);
+
+  const handledivision = (value) => {
+    setSelectedDivision(value);
+    if (value == 6) {
+      setDeliveryCharge(60);
+    } else {
+      setDeliveryCharge(120);
+    }
+  };
+
   return (
     <div>
-      <div class="bg-white p-4 pt-30 pb-20">
+      <div class="bg-white dark:bg-gray-900 p-4 pt-30 pb-20">
         <div class="md:max-w-5xl max-w-xl mx-auto">
           <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
             <div class="lg:col-span-2 max-md:order-1">
-              <h2 class="text-3xl font-semibold text-slate-900">
+              <h2 class="text-3xl font-semibold text-gray-900 dark:text-white">
                 Make a payment
               </h2>
-              <p class="text-slate-500 text-sm mt-4">
+              <p class="text-gray-900 dark:text-white text-sm mt-4">
                 Complete your transaction swiftly and securely with our
                 easy-to-use payment process.
               </p>
               <div class="mt-8 max-w-lg">
-                <h3 class="text-lg font-semibold text-slate-900">
+                <h3 class="text-lg font-semibold text-gray-900 dark:text-white">
                   Choose your payment method
                 </h3>
                 <div class="flex flex-wrap gap-4 justify-between mt-6">
@@ -66,7 +124,7 @@ const Checkout = () => {
                       <input
                         type="text"
                         placeholder="Full Name"
-                        class="px-4 py-3.5 bg-gray-100 text-slate-900 w-full text-sm border rounded-md focus:border-purple-500 focus:bg-transparent outline-none"
+                        class="px-4 py-3.5 text-slate-900 w-full text-sm border rounded-md focus:border-purple-500 focus:bg-transparent outline-none"
                       />
                     </div>
                   </div>
@@ -75,7 +133,7 @@ const Checkout = () => {
                       <input
                         type="text"
                         placeholder="Address"
-                        class="px-4 py-3.5 bg-gray-100 text-slate-900 w-full text-sm border rounded-md focus:border-purple-500 focus:bg-transparent outline-none"
+                        class="px-4 py-3.5 text-slate-900 w-full text-sm border rounded-md focus:border-purple-500 focus:bg-transparent outline-none"
                       />
                     </div>
                   </div>
@@ -84,45 +142,64 @@ const Checkout = () => {
                       <input
                         type="number"
                         placeholder="Phone Number"
-                        class="px-4 py-3.5 bg-gray-100 text-slate-900 w-full text-sm border rounded-md focus:border-purple-500 focus:bg-transparent outline-none"
+                        class="px-4 py-3.5 text-slate-900 w-full text-sm border rounded-md focus:border-purple-500 focus:bg-transparent outline-none"
                       />
                     </div>
                   </div>
-                  <button
-                    type="button"
-                    class="mt-8 w-40 py-3 text-[15px] font-medium bg-purple-500 text-white rounded-md hover:bg-purple-600 tracking-wide"
-                  >
-                    Pay
-                  </button>
+                  <div className="grid gap-4 mt-4">
+                    <Select
+                      onValueChange={handledivision}
+                      value={selectedDivision}
+                    >
+                      <SelectTrigger className="w-[180px] cursor-pointer">
+                        <SelectValue placeholder="Select Division" />
+                      </SelectTrigger>
+
+                      <SelectContent className="SelectContent">
+                        {divisionlist.map((item) => (
+                          <SelectItem key={item.name} value={item.id}>
+                            {item.name}
+                          </SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                  </div>
+                  {deliveryCharge && (
+                    <button
+                      type="button"
+                      class="mt-8 w-40 py-3 text-[15px] font-medium cursor-pointer bg-purple-500 text-white rounded-md hover:bg-purple-600 tracking-wide"
+                    >
+                      Pay
+                    </button>
+                  )}
                 </form>
               </div>
             </div>
 
             <div class="bg-gray-100 p-6 rounded-md">
-              <h2 class="text-2xl font-semibold text-slate-900">$250.00</h2>
-              <ul class="text-slate-500 font-medium mt-8 space-y-4">
-                <li class="flex flex-wrap gap-4 text-sm">
-                  Split Sneakers{" "}
-                  <span class="ml-auto font-semibold text-slate-900">
-                    $150.00
-                  </span>
-                </li>
-                <li class="flex flex-wrap gap-4 text-sm">
-                  Echo Elegance{" "}
-                  <span class="ml-auto font-semibold text-slate-900">
-                    $90.00
-                  </span>
-                </li>
-                <li class="flex flex-wrap gap-4 text-sm">
-                  Tax{" "}
-                  <span class="ml-auto font-semibold text-slate-900">
-                    $10.00
-                  </span>
-                </li>
-                <li class="flex flex-wrap gap-4 text-[15px] font-semibold text-slate-900 border-t-2 pt-4">
-                  Total <span class="ml-auto">$250.00</span>
-                </li>
+              <h2 class="text-2xl font-semibold text-slate-900">
+                Product List
+              </h2>
+              <ul class="text-black font-medium mt-8 space-y-4">
+                {Cardlist.map((item) => (
+                  <li class="flex flex-wrap gap-4 text-sm">
+                    {item.productid.title.slice(0, 15)} X {item.quantity}
+                    <span class="ml-auto font-semibold text-slate-900">
+                      {item.productid.discountprice}
+                    </span>
+                  </li>
+                ))}
               </ul>
+              <ul className="text-black font-medium mt-8 space-y-4">
+                {deliveryCharge && (
+                  <li className="flex justify-between">
+                    Delivey Charge <span>{deliveryCharge}</span>{" "}
+                  </li>
+                )}
+              </ul>
+              <h2 className="text-black font-semibold mt-8 border-t flex justify-between border-gray-400 pt-5">
+                Total Price : <span>{discountprice + deliveryCharge}</span>
+              </h2>
             </div>
           </div>
         </div>
