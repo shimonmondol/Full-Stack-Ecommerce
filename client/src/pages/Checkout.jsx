@@ -15,7 +15,11 @@ const Checkout = () => {
   const [Cardlist, setCardList] = useState([]);
   const [divisionlist, SetDivisionlist] = useState([]);
   const [selectedDivision, setSelectedDivision] = useState("");
+  const [paymentMethod, setpaymentMethod] = useState("");
   const [deliveryCharge, setDeliveryCharge] = useState("");
+  const [fullname, setFullname] = useState("");
+  const [address, setAddress] = useState("");
+  const [phoneNumber, setPhoneNumber] = useState("");
   const navigate = useNavigate();
   const baseurl = import.meta.env.VITE_BASE_URL;
 
@@ -57,6 +61,26 @@ const Checkout = () => {
     } else {
       setDeliveryCharge(120);
     }
+  };
+
+  const handlePayment = (value) => {
+    setpaymentMethod(value);
+  };
+
+  let handlePlaceorder = () => {
+    axios.post("http://localhost:3000/order/placeorder", {
+      fullname,
+      address,
+      phoneNumber,
+      paymentMethod,
+      deliveryCharge,
+      Cardlist,
+      userId: data._id,
+    }).then((res)=>{
+      console.log(res)
+    }).catch((err)=>{
+      console.log(err)
+    });
   };
 
   return (
@@ -122,27 +146,30 @@ const Checkout = () => {
                   <div class="grid gap-4">
                     <div>
                       <input
+                        onChange={(e) => setFullname(e.target.value)}
                         type="text"
                         placeholder="Full Name"
-                        class="px-4 py-3.5 text-slate-900 w-full text-sm border rounded-md focus:border-purple-500 focus:bg-transparent outline-none"
+                        class="px-4 py-3.5 text-white w-full text-sm border rounded-md focus:border-purple-500 focus:bg-transparent outline-none"
                       />
                     </div>
                   </div>
                   <div class="grid gap-4 mt-4">
                     <div>
                       <input
+                        onChange={(e) => setAddress(e.target.value)}
                         type="text"
                         placeholder="Address"
-                        class="px-4 py-3.5 text-slate-900 w-full text-sm border rounded-md focus:border-purple-500 focus:bg-transparent outline-none"
+                        class="px-4 py-3.5 text-white w-full text-sm border rounded-md focus:border-purple-500 focus:bg-transparent outline-none"
                       />
                     </div>
                   </div>
                   <div class="grid gap-4 mt-4">
                     <div>
                       <input
+                        onChange={(e) => setPhoneNumber(e.target.value)}
                         type="number"
                         placeholder="Phone Number"
-                        class="px-4 py-3.5 text-slate-900 w-full text-sm border rounded-md focus:border-purple-500 focus:bg-transparent outline-none"
+                        class="px-4 py-3.5 text-white w-full text-sm border rounded-md focus:border-purple-500 focus:bg-transparent outline-none"
                       />
                     </div>
                   </div>
@@ -163,9 +190,20 @@ const Checkout = () => {
                         ))}
                       </SelectContent>
                     </Select>
+                    <Select onValueChange={handlePayment} value={paymentMethod}>
+                      <SelectTrigger className="w-[180px] cursor-pointer">
+                        <SelectValue placeholder="Select Payment Method" />
+                      </SelectTrigger>
+
+                      <SelectContent className="SelectContent">
+                        <SelectItem value="COD">Cash On Delivery</SelectItem>
+                        <SelectItem value="Online">Online Payment</SelectItem>
+                      </SelectContent>
+                    </Select>
                   </div>
                   {deliveryCharge && (
                     <button
+                      onClick={handlePlaceorder}
                       type="button"
                       class="mt-8 w-40 py-3 text-[15px] font-medium cursor-pointer bg-purple-500 text-white rounded-md hover:bg-purple-600 tracking-wide"
                     >
