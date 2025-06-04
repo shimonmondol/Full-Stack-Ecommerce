@@ -68,19 +68,22 @@ const Checkout = () => {
   };
 
   let handlePlaceorder = () => {
-    axios.post("http://localhost:3000/order/placeorder", {
-      fullname,
-      address,
-      phoneNumber,
-      paymentMethod,
-      deliveryCharge,
-      Cardlist,
-      userId: data._id,
-    }).then((res)=>{
-      console.log(res)
-    }).catch((err)=>{
-      console.log(err)
-    });
+    axios
+      .post("http://localhost:3000/order/placeorder", {
+        fullname,
+        address,
+        phoneNumber,
+        paymentMethod,
+        deliveryCharge,
+        Cardlist,
+        userid: data._id,
+      })
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
 
   return (
@@ -221,9 +224,11 @@ const Checkout = () => {
               <ul class="text-black font-medium mt-8 space-y-4">
                 {Cardlist.map((item) => (
                   <li class="flex flex-wrap gap-4 text-sm">
-                    {item.productid.title.slice(0, 15)} X {item.quantity}
+                    {item.productid.title.slice(0, 10)}
+                    {"  "}
+                    <div>({item.quantity} X {item.productid.discountprice}) </div>
                     <span class="ml-auto font-semibold text-slate-900">
-                      {item.productid.discountprice}
+                      {item.productid.discountprice * item.quantity}
                     </span>
                   </li>
                 ))}
