@@ -43,7 +43,7 @@ async function orderController(req, res) {
     } else {
       return (
         res.status(500),
-        json({ msg: "All Fields are Required", success: false })
+        json({ msg: "All Fields are Required", success: false, data: req.body })
       );
     }
   } catch (error) {
@@ -51,11 +51,11 @@ async function orderController(req, res) {
   }
 }
 
-async function getallorder(req, res) {
+async function getAllorder(req, res) {
   try {
-    const order = await orderModel.find({}).populate("userid");
-    return;
-    res
+    const order = await orderModel.find({}).populate ("userid");
+    
+    return res
       .status(200)
       .json({ success: true, msg: "order get successfully", data: order });
   } catch (error) {
@@ -63,4 +63,4 @@ async function getallorder(req, res) {
   }
 }
 
-module.exports = { orderController, getallorder };
+module.exports = { orderController, getAllorder };

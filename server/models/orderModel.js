@@ -1,7 +1,7 @@
 const { default: mongoose, Schema } = require("mongoose");
 
 const orderSchema = new Schema({
-  cardList: [
+  Cardlist: [
     {
       type: mongoose.Schema.Types.ObjectId,
       ref: "Product",
@@ -11,7 +11,7 @@ const orderSchema = new Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: "User",
   },
-  paymentmethod: {
+  paymentMethod: {
     type: String,
     enum: ["COD", "Online"],
   },
@@ -23,7 +23,7 @@ const orderSchema = new Schema({
     type: String,
     required: true,
   },
-  phone: {
+  phoneNumber: {
     type: String,
     required: true,
   },
