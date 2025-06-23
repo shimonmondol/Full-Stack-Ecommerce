@@ -53,8 +53,11 @@ async function orderController(req, res) {
 
 async function getAllorder(req, res) {
   try {
-    const order = await orderModel.find({}).populate ("userid");
-    
+    const order = await orderModel.find({}).populate("userid").populate({
+      path: "Cardlist.productid",
+      model: "Product",
+    });
+
     return res
       .status(200)
       .json({ success: true, msg: "order get successfully", data: order });

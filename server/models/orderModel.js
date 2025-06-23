@@ -3,8 +3,10 @@ const { default: mongoose, Schema } = require("mongoose");
 const orderSchema = new Schema({
   Cardlist: [
     {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "Product",
+      productid: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Product",
+      },
     },
   ],
   userid: {

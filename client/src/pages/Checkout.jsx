@@ -68,6 +68,9 @@ const Checkout = () => {
   };
 
   let handlePlaceorder = () => {
+    const productinfo = Cardlist.map((item) => ({
+      productid: item.productid._id,
+    }));
     axios
       .post("http://localhost:3000/order/placeorder", {
         fullname,
@@ -75,7 +78,7 @@ const Checkout = () => {
         phoneNumber,
         paymentMethod,
         deliveryCharge,
-        Cardlist,
+        Cardlist: productinfo,
         userid: data._id,
       })
       .then((res) => {
@@ -226,7 +229,9 @@ const Checkout = () => {
                   <li class="flex flex-wrap gap-4 text-sm">
                     {item.productid.title.slice(0, 10)}
                     {"  "}
-                    <div>({item.quantity} X {item.productid.discountprice}) </div>
+                    <div>
+                      ({item.quantity} X {item.productid.discountprice}){" "}
+                    </div>
                     <span class="ml-auto font-semibold text-slate-900">
                       {item.productid.discountprice * item.quantity}
                     </span>
