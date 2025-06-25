@@ -71,6 +71,7 @@ const Checkout = () => {
     const productinfo = Cardlist.map((item) => ({
       productid: item.productid._id,
     }));
+
     axios
       .post("http://localhost:3000/order/placeorder", {
         fullname,

@@ -55,7 +55,7 @@ async function getAllorder(req, res) {
   try {
     const order = await orderModel.find({}).populate("userid").populate({
       path: "Cardlist.productid",
-      model: "Product",
+      model: "product",
     });
 
     return res
