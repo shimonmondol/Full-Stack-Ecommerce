@@ -81,9 +81,12 @@ const Checkout = () => {
         deliveryCharge,
         Cardlist: productinfo,
         userid: data._id,
+        totalprice: discountprice,
       })
       .then((res) => {
-        console.log(res);
+        if (res.data){
+          window.location.href = `https://sandbox.sslcommerz.com/EasyCheckOut/${res.data.id}`; 
+        }
       })
       .catch((err) => {
         console.log(err);

@@ -18,6 +18,7 @@ import Signup from "./pages/Signup.jsx";
 import Otpverify from "./pages/Otpverify.jsx";
 import store from "../store.js";
 import { Provider } from "react-redux";
+import Success from "./pages/success.jsx";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -28,6 +29,7 @@ const router = createBrowserRouter(
         <Route path="/singleproduct/:id" element={<SingleProduct />} />
         <Route path="/card" element={<Card />} />
         <Route path="/checkout" element={<Checkout />} />
+        <Route path="/success" element={<Success />} />
       </Route>
       <Route path="/login" element={<Login />} />
       <Route path="/signup" element={<Signup />} />

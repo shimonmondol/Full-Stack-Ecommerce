@@ -9,6 +9,10 @@ const orderSchema = new Schema({
       },
     },
   ],
+  totalprice:{
+    type:String,
+    required: true,
+  },
   userid: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "User",
