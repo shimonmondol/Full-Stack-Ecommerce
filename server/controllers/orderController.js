@@ -38,6 +38,7 @@ async function orderController(req, res) {
           Cardlist,
           userid,
           totalprice,
+          paymentStatus: "Pending",
         });
         await order.save();
 
@@ -45,12 +46,13 @@ async function orderController(req, res) {
           .status(201)
           .json({ msg: "order placed successfully", success: true });
       } else {
+        const uid = uuidv4();
         const data = {
           total_amount: totalprice,
           currency: "BDT",
-          tran_id: uuidv4(), // use unique tran_id for each api call
-          success_url: "http://localhost:3000/order/success",
-          fail_url: "http://localhost:3030/fail",
+          tran_id: uid, // use unique tran_id for each api call
+          success_url: `http://localhost:3000/order/success/${uid}`,
+          fail_url: "http://localhost:3000/order/failed",
           cancel_url: "http://localhost:3030/cancel",
           ipn_url: "http://localhost:3030/ipn",
           shipping_method: "Courier",
@@ -76,14 +78,26 @@ async function orderController(req, res) {
           ship_country: "Bangladesh",
         };
         const sslcz = new SSLCommerzPayment(store_id, store_passwd, is_live);
-        sslcz.init(data).then((apiResponse) => {
+        sslcz.init(data).then(async (apiResponse) => {
           // Redirect the user to payment gateway
           let GatewayPageURL = apiResponse.GatewayPageURL;
 
           const gateway = GatewayPageURL.split("/");
           const url = gateway[gateway.length - 1];
+          let order = new orderModel({
+            fullname,
+            address,
+            phoneNumber,
+            paymentMethod: "Online",
+            deliveryCharge,
+            Cardlist,
+            userid,
+            totalprice,
+            paymentStatus: "Pending",
+            trn_id: uid,
+          });
+          await order.save();
           return res.status(200).json({ success: true, id: url });
-          res.send(url);
         });
       }
     } else {
@@ -113,7 +127,25 @@ async function getAllorder(req, res) {
 }
 
 async function OrderSuccessController(req, res) {
+  let { id } = req.params;
+  let updateOrder = await orderModel.findOneAndUpdate(
+    { trn_id: id },
+    { paymentStatus: "paid" }
+  );
+
+  await updateOrder.save();
+
+  console.log(updateOrder);
   res.redirect("http://localhost:5173/success");
 }
 
-module.exports = { orderController, getAllorder, OrderSuccessController };
+async function OrderFailedController(req, res) {
+  res.redirect("http://localhost:5173/failed");
+}
+
+module.exports = {
+  orderController,
+  getAllorder,
+  OrderSuccessController,
+  OrderFailedController,
+};

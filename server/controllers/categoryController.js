@@ -30,7 +30,7 @@ async function createcategoryController(req, res) {
 
 async function fetchAllCategoryController(req, res) {
   try {
-    let category = await categorymodel.find({});
+    let category = await categorymodel.find({}).populate("product");
     return res
       .status(200)
       .json({ success: true, msg: "category successful", data: category });

@@ -70,8 +70,8 @@ const Checkout = () => {
   let handlePlaceorder = () => {
     const productinfo = Cardlist.map((item) => ({
       productid: item.productid._id,
+      quantity: item.quantity,
     }));
-
     axios
       .post("http://localhost:3000/order/placeorder", {
         fullname,
@@ -84,8 +84,8 @@ const Checkout = () => {
         totalprice: discountprice,
       })
       .then((res) => {
-        if (res.data){
-          window.location.href = `https://sandbox.sslcommerz.com/EasyCheckOut/${res.data.id}`; 
+        if (res.data) {
+          window.location.href = `https://sandbox.sslcommerz.com/EasyCheckOut/${res.data.id}`;
         }
       })
       .catch((err) => {
@@ -99,59 +99,10 @@ const Checkout = () => {
         <div class="md:max-w-5xl max-w-xl mx-auto">
           <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
             <div class="lg:col-span-2 max-md:order-1">
-              <h2 class="text-3xl font-semibold text-gray-900 dark:text-white">
-                Make a payment
+              <h2 class="text-3xl font-semibold text-gray-900 dark:text-white leading-12">
+                Please Share Your Address to Delivery Product
               </h2>
-              <p class="text-gray-900 dark:text-white text-sm mt-4">
-                Complete your transaction swiftly and securely with our
-                easy-to-use payment process.
-              </p>
               <div class="mt-8 max-w-lg">
-                <h3 class="text-lg font-semibold text-gray-900 dark:text-white">
-                  Choose your payment method
-                </h3>
-                <div class="flex flex-wrap gap-4 justify-between mt-6">
-                  <div class="flex items-center">
-                    <input
-                      type="radio"
-                      class="w-5 h-5 cursor-pointer"
-                      id="card"
-                      checked
-                    />
-                    <label for="card" class="ml-4 flex gap-2 cursor-pointer">
-                      <img
-                        src="https://readymadeui.com/images/visa.webp"
-                        class="w-12"
-                        alt="card1"
-                      />
-                      <img
-                        src="https://readymadeui.com/images/american-express.webp"
-                        class="w-12"
-                        alt="card2"
-                      />
-                      <img
-                        src="https://readymadeui.com/images/master.webp"
-                        class="w-12"
-                        alt="card3"
-                      />
-                    </label>
-                  </div>
-                  <div class="flex items-center">
-                    <input
-                      type="radio"
-                      class="w-5 h-5 cursor-pointer"
-                      id="paypal"
-                    />
-                    <label for="paypal" class="ml-4 flex gap-2 cursor-pointer">
-                      <img
-                        src="https://readymadeui.com/images/paypal.webp"
-                        class="w-20"
-                        alt="paypalCard"
-                      />
-                    </label>
-                  </div>
-                </div>
-
                 <form class="mt-12">
                   <div class="grid gap-4">
                     <div>

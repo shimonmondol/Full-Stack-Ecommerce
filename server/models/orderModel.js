@@ -7,10 +7,13 @@ const orderSchema = new Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: "product",
       },
+      quantity: {
+        type: String,
+      },
     },
   ],
-  totalprice:{
-    type:String,
+  totalprice: {
+    type: String,
     required: true,
   },
   userid: {
@@ -21,6 +24,10 @@ const orderSchema = new Schema({
     type: String,
     enum: ["COD", "Online"],
   },
+  paymentStatus: {
+    type: String,
+    enum: ["Pending", "Paid"],
+  },
   fullname: {
     type: String,
     required: true,
@@ -28,6 +35,9 @@ const orderSchema = new Schema({
   address: {
     type: String,
     required: true,
+  },
+  trn_id: {
+    type: String,
   },
   phoneNumber: {
     type: String,
