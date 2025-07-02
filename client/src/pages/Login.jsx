@@ -15,10 +15,13 @@ const Login = () => {
     e.preventDefault();
 
     try {
-      const response = await axios.post("http://localhost:3000/auth/login", {
-        email,
-        password,
-      });
+      const response = await axios.post(
+        "https://full-stack-ecommerce-server.onrender.com/auth/login",
+        {
+          email,
+          password,
+        }
+      );
 
       const userData = response.data;
 

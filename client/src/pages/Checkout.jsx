@@ -73,16 +73,19 @@ const Checkout = () => {
       quantity: item.quantity,
     }));
     axios
-      .post("http://localhost:3000/order/placeorder", {
-        fullname,
-        address,
-        phoneNumber,
-        paymentMethod,
-        deliveryCharge,
-        Cardlist: productinfo,
-        userid: data._id,
-        totalprice: discountprice,
-      })
+      .post(
+        "https://full-stack-ecommerce-server.onrender.com/order/placeorder",
+        {
+          fullname,
+          address,
+          phoneNumber,
+          paymentMethod,
+          deliveryCharge,
+          Cardlist: productinfo,
+          userid: data._id,
+          totalprice: discountprice,
+        }
+      )
       .then((res) => {
         if (res.data) {
           window.location.href = `https://sandbox.sslcommerz.com/EasyCheckOut/${res.data.id}`;
@@ -134,7 +137,8 @@ const Checkout = () => {
                       />
                     </div>
                   </div>
-                  <div className="grid gap-4 mt-4">
+
+                  <div className="flex gap-6 mt-6">
                     <Select
                       onValueChange={handledivision}
                       value={selectedDivision}
@@ -162,6 +166,7 @@ const Checkout = () => {
                       </SelectContent>
                     </Select>
                   </div>
+
                   {deliveryCharge && (
                     <button
                       onClick={handlePlaceorder}

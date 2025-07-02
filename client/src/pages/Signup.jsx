@@ -15,7 +15,7 @@ const Signup = () => {
   const handlesignup = (e) => {
     e.preventDefault();
     axios
-      .post("http://localhost:3000/auth/signup", {
+      .post("https://full-stack-ecommerce-server.onrender.com/auth/signup", {
         name: fullname,
         email,
         password,

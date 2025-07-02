@@ -62,7 +62,7 @@ const Shop = () => {
 
   function getAllproducts() {
     axios
-      .get("http://localhost:3000/product/products")
+      .get("https://full-stack-ecommerce-server.onrender.com/product/products")
       .then((res) => {
         setAllProducts(res.data.products);
         setLoading(false);

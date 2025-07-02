@@ -12,7 +12,7 @@ const Otpverify = () => {
 
   const handleotpsubmit = () => {
     axios
-      .post("http://localhost:3000/auth/verifyotp", {
+      .post("https://full-stack-ecommerce-server.onrender.com/auth/verifyotp", {
         email: data.email,
         otp: otp,
       })
