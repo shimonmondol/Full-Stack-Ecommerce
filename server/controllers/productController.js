@@ -15,7 +15,8 @@ async function CreateProductController(req, res) {
   } = req.body;
 
   let images = req.files.map(
-    (item) => `http://localhost:3000/${item.filename}`
+    (item) =>
+      `https://full-stack-ecommerce-server.onrender.com/${item.filename}`
   );
 
   try {
@@ -108,7 +109,9 @@ async function deleteProductController(req, res) {
 async function singleProductController(req, res) {
   const { id } = req.params;
   try {
-    const singleproduct = await productModel.findOne({ _id: id }).populate("category")
+    const singleproduct = await productModel
+      .findOne({ _id: id })
+      .populate("category");
 
     return res.status(200).json({
       msg: "single product fetch success",

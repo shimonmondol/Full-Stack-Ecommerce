@@ -10,7 +10,7 @@ async function createcategoryController(req, res) {
     let category = new categorymodel({
       title,
       description,
-      image: `http://localhost:3000/${filename}`,
+      image: `https://full-stack-ecommerce-server.onrender.com/${filename}`,
       product,
     });
 
@@ -92,7 +92,10 @@ async function updateCategoryController(req, res) {
       let existingpath = path.join(__dirname, "../uploads");
       let existingcategory = await categorymodel.findOneAndUpdate(
         { _id: id },
-        { image: `http://localhost:3000/${filename}`, title: title }
+        {
+          image: `https://full-stack-ecommerce-server.onrender.com/${filename}`,
+          title: title,
+        }
       );
 
       let splitpath = existingcategory.image.split("/");
@@ -120,7 +123,9 @@ async function updateCategoryController(req, res) {
       let existingpath = path.join(__dirname, "../uploads");
       let existingcategory = await categorymodel.findOneAndUpdate(
         { _id: id },
-        { image: `http://localhost:3000/${filename}` }
+        {
+          image: `https://full-stack-ecommerce-server.onrender.com/${filename}`,
+        }
       );
 
       let splitpath = existingcategory.image.split("/");

@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router";
 import { FaBangladeshiTakaSign } from "react-icons/fa6";
 import { useSelector } from "react-redux";
-import toast, { Toaster } from 'react-hot-toast';
+import toast, { Toaster } from "react-hot-toast";
 
 const SingleProduct = ({}) => {
   let { id } = useParams();
@@ -14,7 +14,9 @@ const SingleProduct = ({}) => {
   useEffect(() => {
     function getSingleProduct() {
       axios
-        .get(`http://localhost:3000/product/singleproduct/${id}`)
+        .get(
+          `https://full-stack-ecommerce-server.onrender.com/product/singleproduct/${id}`
+        )
         .then((res) => {
           setSingleProduct(res.data.product);
         })
@@ -29,20 +31,24 @@ const SingleProduct = ({}) => {
     if (data) {
       const baseurl = import.meta.env.VITE_BASE_URL;
       axios
-        .post(`${baseurl}/card/addtocard`, {
-          productid: id,
-          // quantity,
-          userid: data.data._id,
-        },{
-          headers:{
-            token: data.token,
+        .post(
+          `${baseurl}/card/addtocard`,
+          {
+            productid: id,
+            // quantity,
+            userid: data.data._id,
           },
-        })
+          {
+            headers: {
+              token: data.token,
+            },
+          }
+        )
         .then((res) => {
-          toast.success('Product Add to Card');
+          toast.success("Product Add to Card");
         })
         .catch((err) => {
-          toast.error('Add to Card Failed');
+          toast.error("Add to Card Failed");
         });
     } else {
       navigate("/login");
@@ -51,7 +57,7 @@ const SingleProduct = ({}) => {
 
   return (
     <section className="py-30 bg-white dark:bg-gray-900 antialiased">
-    <Toaster/>
+      <Toaster />
       <div className="max-w-screen-xl px-4 mx-auto 2xl:px-0">
         <div className="lg:grid lg:grid-cols-2 lg:gap-8 xl:gap-16">
           <div className="shrink-0 max-w-md lg:max-w-lg mx-auto">

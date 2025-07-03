@@ -51,8 +51,9 @@ async function orderController(req, res) {
           total_amount: totalprice,
           currency: "BDT",
           tran_id: uid, // use unique tran_id for each api call
-          success_url: `http://localhost:3000/order/success/${uid}`,
-          fail_url: "http://localhost:3000/order/failed",
+          success_url: `https://full-stack-ecommerce-server.onrender.com/order/success/${uid}`,
+          fail_url:
+            "https://full-stack-ecommerce-server.onrender.com/order/failed",
           cancel_url: "http://localhost:3030/cancel",
           ipn_url: "http://localhost:3030/ipn",
           shipping_method: "Courier",
