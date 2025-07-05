@@ -136,7 +136,6 @@ async function OrderSuccessController(req, res) {
 
   await updateOrder.save();
 
-  console.log(updateOrder);
   res.redirect("https://wondrous-biscuit-27b2a1.netlify.app/success");
 }
 
