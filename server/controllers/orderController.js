@@ -137,11 +137,11 @@ async function OrderSuccessController(req, res) {
   await updateOrder.save();
 
   console.log(updateOrder);
-  res.redirect("http://localhost:5173/success");
+  res.redirect("https://wondrous-biscuit-27b2a1.netlify.app/success");
 }
 
 async function OrderFailedController(req, res) {
-  res.redirect("http://localhost:5173/failed");
+  res.redirect("https://wondrous-biscuit-27b2a1.netlify.app/failed");
 }
 
 module.exports = {

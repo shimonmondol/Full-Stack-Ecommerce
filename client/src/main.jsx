@@ -1,7 +1,6 @@
 import { createRoot } from "react-dom/client";
 import "./index.css";
 import App from "./App.jsx";
-import Shop from "./pages/shop.jsx";
 import {
   createBrowserRouter,
   createRoutesFromElements,
@@ -10,6 +9,7 @@ import {
 } from "react-router";
 import Rootlayout from "./components/Rootlayout.jsx";
 import { ThemeProvider } from "@/components/theme-provider";
+import Shop from "./pages/Shop.jsx";
 import SingleProduct from "./components/SingleProduct.jsx";
 import Card from "./pages/Card.jsx";
 import Checkout from "./pages/Checkout.jsx";
