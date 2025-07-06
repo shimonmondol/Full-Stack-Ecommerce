@@ -77,7 +77,7 @@ const Banner = () => {
       <div className="container">
         <Slider {...settings}>
           <img
-            src="https://img.lazcdn.com/us/domino/c3c7bbaf-3200-40ad-a9ab-385eb4ff0205_BD-1976-688.jpg_2200x2200q80.jpg_.webp"
+            src="https://img.lazcdn.com/us/domino/535f8fb6-6447-4de6-ae6f-d0382781d276_BD-1976-688.jpg_2200x2200q80.jpg_.webp"
             alt=""
           />
           <img

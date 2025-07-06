@@ -1,6 +1,6 @@
 const Footer = ({
   logo = {
-    title: "E-Commerce",
+    title: "Baraz.com",
   },
   menuItems = [
     {

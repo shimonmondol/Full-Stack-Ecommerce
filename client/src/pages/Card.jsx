@@ -100,7 +100,7 @@ const Card = () => {
                             alt="imac image"
                           />
                           <img
-                            className="hidden h-20 w-20 dark:block"
+                            className="hidden h-20 w-20 rounded-lg dark:block"
                             src={item.productid?.image}
                             alt="imac image"
                           />

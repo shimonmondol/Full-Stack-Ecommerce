@@ -60,7 +60,7 @@ const Navbar = ({
 
   return (
     <section
-      className="py-4 fixed w-full z-50
+      className="py-4 fixed top-0 left-0 w-full z-50
    bg-white dark:bg-black shadow-lg"
     >
       <div className="container">

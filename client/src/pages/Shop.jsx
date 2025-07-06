@@ -19,44 +19,24 @@ const Shop = () => {
 
   const allcategories = [
     {
-      name: "Laptop",
-      image:
-        "https://img.drz.lazcdn.com/static/bd/p/8081368be1e60627bfb891af9714b1ff.jpg_400x400q75.avif",
-    },
-    {
-      name: "Iphone",
-      image:
-        "https://img.drz.lazcdn.com/static/bd/p/ee6edf35abcfc2a97501a174c60f5bba.png_400x400q75.avif",
-    },
-    {
-      name: "Desktop",
-      image:
-        "https://img.drz.lazcdn.com/static/bd/p/ed447d832d34960d3f3be92960496448.jpg_400x400q75.avif",
-    },
-    {
-      name: "Watch",
-      image:
-        "https://img.drz.lazcdn.com/static/bd/p/a65b2c23ae8deadc8da210d7cf8b1bee.jpg_400x400q75.avif",
-    },
-    {
       name: "Camera",
       image:
         "https://img.drz.lazcdn.com/static/bd/p/fde516f208fb7bda4578d89abbd53c89.jpg_400x400q75.avif",
     },
     {
-      name: "Headphone",
+      name: "Laptop",
       image:
-        "https://img.drz.lazcdn.com/static/bd/p/c6ec2f436faa28f96104d465bb67b04f.jpg_400x400q75.avif",
+        "https://img.drz.lazcdn.com/static/bd/p/8081368be1e60627bfb891af9714b1ff.jpg_400x400q75.avif",
     },
     {
-      name: "Airpods",
+      name: "Smartphone",
       image:
-        "https://img.drz.lazcdn.com/g/kf/S9651e3cf95264f58938026c902669097x.jpg_400x400q75.avif",
+        "https://img.drz.lazcdn.com/static/bd/p/ee6edf35abcfc2a97501a174c60f5bba.png_400x400q75.avif",
     },
     {
-      name: "Body Spray",
+      name: "Watch",
       image:
-        "https://img.drz.lazcdn.com/static/bd/p/9aadf26a5de180b7ed30be447ff772ab.jpg_400x400q75.avif",
+        "https://img.drz.lazcdn.com/static/bd/p/a65b2c23ae8deadc8da210d7cf8b1bee.jpg_400x400q75.avif",
     },
   ];
 
@@ -94,10 +74,6 @@ const Shop = () => {
             <path d="M5 5V.13a2.96 2.96 0 0 0-1.293.749L.879 3.707A2.98 2.98 0 0 0 .13 5H5Z" />
           </svg>
         </div>
-        <div className="h-2.5 bg-gray-200 rounded-full dark:bg-gray-700 w-48 mb-4" />
-        <div className="h-2 bg-gray-200 rounded-full dark:bg-gray-700 mb-2.5" />
-        <div className="h-2 bg-gray-200 rounded-full dark:bg-gray-700 mb-2.5" />
-        <div className="h-2 bg-gray-200 rounded-full dark:bg-gray-700" />
         <div className="flex items-center mt-4">
           <svg
             className="w-10 h-10 me-3 text-gray-200 dark:text-gray-700"
