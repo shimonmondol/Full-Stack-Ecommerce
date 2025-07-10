@@ -8,6 +8,12 @@ import {
 } from "@/components/ui/accordion";
 import { Button } from "@/components/ui/button";
 import {
+  DropdownMenu,
+  DropdownMenuTrigger,
+  DropdownMenuContent,
+  DropdownMenuItem,
+} from "@/components/ui/dropdown-menu";
+import {
   NavigationMenu,
   NavigationMenuContent,
   NavigationMenuItem,
@@ -23,10 +29,12 @@ import {
   SheetTrigger,
 } from "@/components/ui/sheet";
 import { ModeToggle } from "./mode-toggle";
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
 import { useSelector, useDispatch } from "react-redux";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { userLoginInfo } from "../../slices/userslice";
+import axios from "axios";
+import { FaCartArrowDown } from "react-icons/fa";
 
 const Navbar = ({
   logo = {
@@ -46,17 +54,31 @@ const Navbar = ({
   },
 }) => {
   const data = useSelector((state) => state.authSlice.value?.data);
-  const [logoutmodal, setLogoutModal] = useState(false);
   const dispatch = useDispatch();
+  const [Cardlist, setCardList] = useState([]);
+  const navigate = useNavigate();
 
-  const handleLogoutModal = () => {
-    setLogoutModal(true);
-  };
 
   const handleLogout = () => {
     localStorage.removeItem("userdata");
     dispatch(userLoginInfo(null));
+    navigate("/");
   };
+
+  useEffect(() => {
+    const baseurl = import.meta.env.VITE_BASE_URL;
+    function getCardList() {
+      axios
+        .get(`${baseurl}/card/usercardlist/${data?._id}`)
+        .then((res) => {
+          setCardList(res.data.data);
+        })
+        .catch((err) => {
+          toast.error(err);
+        });
+    }
+    getCardList();
+  }, []);
 
   return (
     <section
@@ -82,27 +104,38 @@ const Navbar = ({
             </div>
           </div>
           <div className="flex">
+            <div className="mr-13 mt-1">
+              {data && (
+                <div className="dark:bg-gray-700 bg-amber-400 rounded-xl fixed flex justify-center items-center cursor-pointer w-[40px] h-[40px]">
+                  <Link to="/card">
+                    <FaCartArrowDown className="w-[30px] h-[30px]" />
+                  </Link>
+                  <h2 className="absolute font-bold text-xl text-red-500 top-[-10px] right-[-3px]">
+                    {Cardlist?.length}{" "}
+                  </h2>
+                </div>
+              )}
+            </div>
             <div className="mr-3 mt-[6px]">
               <ModeToggle />
             </div>
             <div>
               {data ? (
-                <div className="flex items-center">
-                  {logoutmodal ? (
-                    <button
-                      onClick={handleLogout}
-                      className="cursor-pointer block text-white px-3 py-2 bg-red-500 rounded-md mt-1"
-                    >
-                      Logout
-                    </button>
-                  ) : (
-                    <button
-                      onClick={handleLogoutModal}
-                      className="mt-1 bg-green-500 text-white rounded-md cursor-pointer px-3 py-2"
-                    >
-                      <h1>{data.name}</h1>
-                    </button>
-                  )}
+                <div>
+                  <DropdownMenu>
+                    <DropdownMenuTrigger asChild>
+                      <button className="mt-1 bg-green-500 text-white rounded-md cursor-pointer px-3 py-2">
+                        {data.name}
+                      </button>
+                    </DropdownMenuTrigger>
+                    <DropdownMenuContent>
+                      <DropdownMenuItem onClick={handleLogout}>
+                        <button className="bg-red-500 text-white rounded-md cursor-pointer px-6 py-2">
+                          Log Out
+                        </button>
+                      </DropdownMenuItem>
+                    </DropdownMenuContent>
+                  </DropdownMenu>
                 </div>
               ) : (
                 <div className="flex gap-2 mt-2">
@@ -155,27 +188,38 @@ const Navbar = ({
                       {menu.map((item) => renderMobileMenuItem(item))}
                     </Accordion>
                     <div className="flex">
-                      <div className="mr-3 mt-[6px]">
+                      <div className="mr-13 mt-1">
+                        {data && (
+                          <div className="dark:bg-gray-700 bg-amber-400 rounded-xl fixed flex justify-center items-center cursor-pointer w-[40px] h-[40px]">
+                            <Link to="/card">
+                              <FaCartArrowDown className="w-[30px] h-[30px]" />
+                            </Link>
+                            <h2 className="absolute font-bold text-xl text-red-500 top-[-10px] right-[-3px]">
+                              {Cardlist?.length}{" "}
+                            </h2>
+                          </div>
+                        )}
+                      </div>
+                      <div className="pr-2 mt-[6px]">
                         <ModeToggle />
                       </div>
                       <div>
                         {data ? (
-                          <div className="flex items-center">
-                            {logoutmodal ? (
-                              <button
-                                onClick={handleLogout}
-                                className="cursor-pointer block text-white px-3 py-2 bg-red-500 rounded-md mt-1"
-                              >
-                                Logout
-                              </button>
-                            ) : (
-                              <button
-                                onClick={handleLogoutModal}
-                                className="mt-1 bg-green-500 text-white rounded-md cursor-pointer px-3 py-2"
-                              >
-                                <h1>{data.name}</h1>
-                              </button>
-                            )}
+                          <div>
+                            <DropdownMenu>
+                              <DropdownMenuTrigger asChild>
+                                <button className="mt-1 bg-green-500 text-white rounded-md cursor-pointer px-3 py-2 mr-[-20px]">
+                                  {data.name}
+                                </button>
+                              </DropdownMenuTrigger>
+                              <DropdownMenuContent>
+                                <DropdownMenuItem onClick={handleLogout}>
+                                  <button className="bg-red-500 text-white rounded-md cursor-pointer px-6 py-2">
+                                    Log Out
+                                  </button>
+                                </DropdownMenuItem>
+                              </DropdownMenuContent>
+                            </DropdownMenu>
                           </div>
                         ) : (
                           <div className="flex gap-2 mt-2">

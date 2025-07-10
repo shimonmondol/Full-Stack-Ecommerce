@@ -2,6 +2,7 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router";
+import toast, { Toaster } from "react-hot-toast";
 import {
   Select,
   SelectContent,
@@ -30,7 +31,7 @@ const Checkout = () => {
 
     function getCardList() {
       axios
-        .get(`${baseurl}/card/usercardlist/${data?._id}`)
+        .get(`${baseurl}/card/usercardlist/${data._id}`)
         .then((res) => {
           setCardList(res.data.data);
         })
@@ -67,14 +68,14 @@ const Checkout = () => {
     setpaymentMethod(value);
   };
 
-  let handlePlaceorder = () => {
+  const handlePlaceorder = () => {
     const productinfo = Cardlist.map((item) => ({
       productid: item.productid._id,
       quantity: item.quantity,
     }));
     axios
       .post(
-        "https://full-stack-ecommerce-server.onrender.com/order/placeorder",
+        `https://full-stack-ecommerce-server.onrender.com/order/placeorder`,
         {
           fullname,
           address,
@@ -90,9 +91,17 @@ const Checkout = () => {
         if (res.data) {
           window.location.href = `https://sandbox.sslcommerz.com/EasyCheckOut/${res.data.id}`;
         }
+        // Clear form fields after successful order
+        setFullname("");
+        setAddress("");
+        setPhone("");
+        setpaymentMethod("");
+        setSelectedDivision("");
+        setDeliveryCharge("");
+        toast.success("Order placed successful");
       })
       .catch((err) => {
-        console.log(err);
+        toast.error("Failed to place order");
       });
   };
 
@@ -106,14 +115,14 @@ const Checkout = () => {
                 Please Share Your Address to Delivery Product
               </h2>
               <div class="mt-8 max-w-lg">
-                <form class="mt-12">
+                <form class="mt-12 ">
                   <div class="grid gap-4">
                     <div>
                       <input
                         onChange={(e) => setFullname(e.target.value)}
                         type="text"
                         placeholder="Full Name"
-                        class="px-4 py-3.5 text-white w-full text-sm border rounded-md focus:border-purple-500 focus:bg-transparent outline-none"
+                        class="px-4 py-3.5 w-full text-sm border rounded-md focus:border-purple-500 focus:bg-transparent outline-none"
                       />
                     </div>
                   </div>
@@ -123,7 +132,7 @@ const Checkout = () => {
                         onChange={(e) => setAddress(e.target.value)}
                         type="text"
                         placeholder="Address"
-                        class="px-4 py-3.5 text-white w-full text-sm border rounded-md focus:border-purple-500 focus:bg-transparent outline-none"
+                        class="px-4 py-3.5 w-full text-sm border rounded-md focus:border-purple-500 focus:bg-transparent outline-none"
                       />
                     </div>
                   </div>
@@ -133,7 +142,7 @@ const Checkout = () => {
                         onChange={(e) => setPhoneNumber(e.target.value)}
                         type="number"
                         placeholder="Phone Number"
-                        class="px-4 py-3.5 text-white w-full text-sm border rounded-md focus:border-purple-500 focus:bg-transparent outline-none"
+                        class="px-4 py-3.5 w-full text-sm border rounded-md"
                       />
                     </div>
                   </div>
@@ -143,7 +152,7 @@ const Checkout = () => {
                       onValueChange={handledivision}
                       value={selectedDivision}
                     >
-                      <SelectTrigger className="w-[180px] cursor-pointer">
+                      <SelectTrigger className="w-[180px] cursor-pointer dark:text-white">
                         <SelectValue placeholder="Select Division" />
                       </SelectTrigger>
 
@@ -156,7 +165,7 @@ const Checkout = () => {
                       </SelectContent>
                     </Select>
                     <Select onValueChange={handlePayment} value={paymentMethod}>
-                      <SelectTrigger className="w-[180px] cursor-pointer">
+                      <SelectTrigger className="w-[180px] cursor-pointer dark:text-white">
                         <SelectValue placeholder="Select Payment Method" />
                       </SelectTrigger>
 

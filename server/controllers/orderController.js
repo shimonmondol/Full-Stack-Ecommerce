@@ -52,10 +52,9 @@ async function orderController(req, res) {
           currency: "BDT",
           tran_id: uid, // use unique tran_id for each api call
           success_url: `https://full-stack-ecommerce-server.onrender.com/order/success/${uid}`,
-          fail_url:
-            "https://full-stack-ecommerce-server.onrender.com/order/failed",
-          cancel_url: "http://localhost:3030/cancel",
-          ipn_url: "http://localhost:3030/ipn",
+          fail_url: `https://full-stack-ecommerce-server.onrender.com/order/failed/${uid}`,
+          cancel_url: `https://full-stack-ecommerce-server.onrender.com/order/cancel/${uid}`,
+          ipn_url: `https://full-stack-ecommerce-server.onrender.com/order/ipn`,
           shipping_method: "Courier",
           product_name: "Computer.",
           product_category: "Electronic",

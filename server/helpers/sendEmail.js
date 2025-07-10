@@ -13,20 +13,21 @@ async function sendEmail(email, otp) {
     subject: "Ecommerce-OTP", // Subject line
     text: "Please Verify Your Account", // plain text body
     html: `<div>
-      <h1 style="color: blue; text-align: center; padding-top: 20px">
+      <h1
+        style="color: blue; text-align: center; padding-top: 30px";
+      >
         Your OTP Verification Code is
       </h1>
       <div>
         <h1
           style="
             color: white;
-            width: 100px;
             background-color: red;
             text-align: center;
-            margin-left: 330px;
+            justify-items: center;
           "
         >
-        ${otp}
+          ${otp}
         </h1>
       </div>
     </div>`, // html body
