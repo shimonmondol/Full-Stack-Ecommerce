@@ -20,6 +20,7 @@ import store from "../store.js";
 import { Provider } from "react-redux";
 import Success from "./pages/success.jsx";
 import Failed from "./pages/Failed.jsx";
+import COD from "./pages/COD.jsx";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -32,6 +33,7 @@ const router = createBrowserRouter(
         <Route path="/checkout" element={<Checkout />} />
         <Route path="/success" element={<Success />} />
         <Route path="/failed" element={<Failed />} />
+        <Route path="/cod" element={<COD />} />
       </Route>
       <Route path="/login" element={<Login />} />
       <Route path="/signup" element={<Signup />} />

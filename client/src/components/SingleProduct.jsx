@@ -4,6 +4,7 @@ import { useParams, useNavigate } from "react-router";
 import { FaBangladeshiTakaSign } from "react-icons/fa6";
 import { useSelector } from "react-redux";
 import toast, { Toaster } from "react-hot-toast";
+const baseurl = import.meta.env.VITE_BASE_URL;
 
 const SingleProduct = ({}) => {
   let { id } = useParams();
@@ -15,7 +16,7 @@ const SingleProduct = ({}) => {
     function getSingleProduct() {
       axios
         .get(
-          `https://full-stack-ecommerce-server.onrender.com/product/singleproduct/${id}`
+          `${baseurl}/product/singleproduct/${id}`
         )
         .then((res) => {
           setSingleProduct(res.data.product);
@@ -29,7 +30,6 @@ const SingleProduct = ({}) => {
 
   const handleAddtoCard = () => {
     if (data) {
-      const baseurl = import.meta.env.VITE_BASE_URL;
       axios
         .post(
           `${baseurl}/card/addtocard`,

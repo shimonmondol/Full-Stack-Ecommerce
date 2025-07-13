@@ -95,7 +95,7 @@ const Shop = () => {
   }
 
   return (
-    <main className="pt-20">
+    <main className="pt-35 pb-10 bg-gray-800">
       <div className="container">
         <aside className="grid grid-cols-12 gap-y-2 lg:gap-8">
           <div className="col-span-12 lg:col-span-2">
