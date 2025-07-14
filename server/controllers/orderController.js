@@ -135,11 +135,11 @@ async function OrderSuccessController(req, res) {
 
   await updateOrder.save();
 
-  res.redirect("https://wondrous-biscuit-27b2a1.netlify.app/success");
+  res.redirect(`${process.env.vite_base_url}/success`);
 }
 
 async function OrderFailedController(req, res) {
-  res.redirect("https://wondrous-biscuit-27b2a1.netlify.app/failed");
+  res.redirect(`${process.env.vite_base_url}/failed`);
 }
 
 module.exports = {

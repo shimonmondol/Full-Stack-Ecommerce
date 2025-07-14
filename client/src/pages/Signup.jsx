@@ -11,11 +11,12 @@ const Signup = () => {
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const baseurl = import.meta.env.VITE_BASE_URL;
 
   const handlesignup = (e) => {
     e.preventDefault();
     axios
-      .post("https://full-stack-ecommerce-server.onrender.com/auth/signup", {
+      .post(`${baseurl}/auth/signup`, {
         name: fullname,
         email,
         password,

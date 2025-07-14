@@ -10,13 +10,14 @@ const Login = () => {
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const baseurl = import.meta.env.VITE_BASE_URL
 
   const handleLogin = async (e) => {
     e.preventDefault();
 
     try {
       const response = await axios.post(
-        "https://full-stack-ecommerce-server.onrender.com/auth/login",
+        `${baseurl}/auth/login`,
         {
           email,
           password,

@@ -106,7 +106,7 @@ const Navbar = ({
           <div className="flex">
             <div className="mr-13 mt-1">
               {data && (
-                <div className="dark:bg-gray-700 bg-amber-400 rounded-xl fixed flex justify-center items-center cursor-pointer w-[40px] h-[40px]">
+                <div className="dark:bg-gray-700 rounded-xl fixed flex justify-center items-center cursor-pointer w-[40px] h-[40px]">
                   <Link to="/card">
                     <FaCartArrowDown className="w-[30px] h-[30px]" />
                   </Link>

@@ -10,7 +10,7 @@ async function createcategoryController(req, res) {
     let category = new categorymodel({
       title,
       description,
-      image: `https://full-stack-ecommerce-server.onrender.com/${filename}`,
+      image: `${process.env.base_url}/${filename}`,
       product,
     });
 
@@ -93,7 +93,7 @@ async function updateCategoryController(req, res) {
       let existingcategory = await categorymodel.findOneAndUpdate(
         { _id: id },
         {
-          image: `https://full-stack-ecommerce-server.onrender.com/${filename}`,
+          image: `${process.env.base_url}/${filename}`,
           title: title,
         }
       );
@@ -124,7 +124,7 @@ async function updateCategoryController(req, res) {
       let existingcategory = await categorymodel.findOneAndUpdate(
         { _id: id },
         {
-          image: `https://full-stack-ecommerce-server.onrender.com/${filename}`,
+          image: `${process.env.base_url}/${filename}`,
         }
       );
 

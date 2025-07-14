@@ -7,10 +7,11 @@ const Otpverify = () => {
   const data = useSelector((state) => state.authSlice.value?.payload);
   const [otp, setotp] = useState(null);
   const navigate = useNavigate();
+  const baseurl = import.meta.env.VITE_BASE_URL;
 
   const handleotpsubmit = () => {
     axios
-      .post("https://full-stack-ecommerce-server.onrender.com/auth/verifyotp", {
+      .post(`${baseurl}/auth/verifyotp`, {
         email: data.email,
         otp: otp,
       })
@@ -24,28 +25,34 @@ const Otpverify = () => {
 
   return (
     <>
-      <div className="flex justify-center items-center h-screen">
-        <div onChange={(e) => setotp(e.target.value)}>
+      <div className="flex items-center justify-center min-h-screen bg-gradient-to-br from-blue-100 to-purple-200 dark:from-gray-900 dark:to-gray-700">
+        <div className="bg-white dark:bg-gray-900 shadow-2xl rounded-3xl p-8 sm:p-10 w-full max-w-md transition-all duration-300">
+          <h2 className="text-2xl font-bold text-center text-gray-800 dark:text-white mb-6">
+            OTP Verification
+          </h2>
+
           <label
-            htmlFor="email"
-            className="block text-center mb-2 text-sm font-medium text-gray-900 dark:text-white"
+            htmlFor="otp"
+            className="block text-lg font-medium text-gray-700 dark:text-gray-300 mb-2"
           >
-            OTP Verification Code
+            Enter the 6-digit code sent to your email
           </label>
+
           <input
-            onChange={(e) => setFullname(e.target.value)}
-            type="fullname"
-            name="name"
-            id="name"
-            className="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white center-placeholder dark:focus:ring-blue-500 dark:focus:border-blue-500 mt-6"
-            placeholder="OTP"
-            required=""
+            id="otp"
+            name="otp"
+            type="text"
+            onChange={(e) => setotp(e.target.value)}
+            maxLength={6}
+            placeholder="6 Digit OTP"
+            className="w-full mt-4 px-4 py-3 text-center text-lg tracking-widest rounded-xl border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-800 dark:text-white dark:border-gray-700"
           />
+
           <button
             onClick={handleotpsubmit}
-            className="text-center cursor-pointer mt-3"
+            className="w-full mt-6 py-3 text-white bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 font-semibold rounded-xl shadow-lg transition duration-300 cursor-pointer"
           >
-            Submit
+            Verify OTP
           </button>
         </div>
       </div>

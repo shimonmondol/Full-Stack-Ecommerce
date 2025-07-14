@@ -15,8 +15,7 @@ async function CreateProductController(req, res) {
   } = req.body;
 
   let images = req.files.map(
-    (item) =>
-      `https://full-stack-ecommerce-server.onrender.com/${item.filename}`
+    (item) => `${process.env.base_url}/${item.filename}`
   );
 
   try {

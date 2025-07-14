@@ -16,6 +16,7 @@ const Shop = () => {
   const [categoryshow, setCategoryshow] = useState(false);
   const [allproducts, setAllProducts] = useState([]);
   const [loading, setLoading] = useState(true);
+  const baseurl = import.meta.env.VITE_BASE_URL;
 
   const allcategories = [
     {
@@ -42,7 +43,7 @@ const Shop = () => {
 
   function getAllproducts() {
     axios
-      .get("https://full-stack-ecommerce-server.onrender.com/product/products")
+      .get(`${baseurl}/product/products`)
       .then((res) => {
         setAllProducts(res.data.products);
         setLoading(false);
@@ -95,7 +96,7 @@ const Shop = () => {
   }
 
   return (
-    <main className="pt-35 pb-10 bg-gray-800">
+    <main className="pt-35 pb-10  dark:bg-gray-800">
       <div className="container">
         <aside className="grid grid-cols-12 gap-y-2 lg:gap-8">
           <div className="col-span-12 lg:col-span-2">
