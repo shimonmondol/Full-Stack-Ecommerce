@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import Product from "../components/Product";
 import {
   Card,
   CardContent,
@@ -23,6 +22,7 @@ const Shop = () => {
       name: "Camera",
       image:
         "https://img.drz.lazcdn.com/static/bd/p/fde516f208fb7bda4578d89abbd53c89.jpg_400x400q75.avif",
+      category: "Camera",
     },
     {
       name: "Laptop",

@@ -10,7 +10,7 @@ const product = {
   href: "#",
   image: "https://bundui-images.netlify.app/products/04.jpeg",
   price: "$28",
-  category: "Clothing",
+  category: "Electronics",
 };
 
 export default function Product({ productinfo }) {

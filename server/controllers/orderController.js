@@ -54,7 +54,7 @@ async function orderController(req, res) {
           success_url: `${process.env.base_url}/order/success/${uid}`,
           fail_url: `${process.env.base_url}/order/failed/${uid}`,
           cancel_url: `${process.env.base_url}/order/cancel/${uid}`,
-          ipn_url: `${process.env.base_url}/order/ipn`,
+          ipn_url: `${process.env.base_url}/order/ipn/${uid}`,
           shipping_method: "Courier",
           product_name: "Computer.",
           product_category: "Electronic",
