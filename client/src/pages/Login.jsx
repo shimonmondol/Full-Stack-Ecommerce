@@ -3,26 +3,25 @@ import axios from "axios";
 import { Link, useNavigate } from "react-router";
 import { Bounce, ToastContainer, toast } from "react-toastify";
 import { useDispatch } from "react-redux";
-import { userLoginInfo } from "../../slices/userslice"; // Make sure path is correct
+import { userLoginInfo } from "../../slices/userslice";
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [loading, setLoading] = useState(false); // ✅ Add this
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const baseurl = import.meta.env.VITE_BASE_URL
+  const baseurl = import.meta.env.VITE_BASE_URL;
 
   const handleLogin = async (e) => {
     e.preventDefault();
+    setLoading(true); // ✅ Start loading
 
     try {
-      const response = await axios.post(
-        `${baseurl}/auth/login`,
-        {
-          email,
-          password,
-        }
-      );
+      const response = await axios.post(`${baseurl}/auth/login`, {
+        email,
+        password,
+      });
 
       const userData = response.data;
 
@@ -36,12 +35,14 @@ const Login = () => {
     } catch (error) {
       console.error("Login failed:", error);
       toast.error("Invalid email or password");
+    } finally {
+      setLoading(false); // ✅ Stop loading
     }
   };
 
   return (
     <div>
-      <ToastContainer/>
+      <ToastContainer />
       <section className="bg-gray-50 dark:bg-black">
         <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
           <div className="w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700">
@@ -96,10 +97,10 @@ const Login = () => {
                 </div>
                 <button
                   type="submit"
-                  disabled={loading}
+                  disabled={loading} // ✅ Works now
                   className="w-full text-white bg-black cursor-pointer font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
                 >
-                  {loading ? "Logging" : "Log in"}
+                  {loading ? "Logging in..." : "Log in"} {/* ✅ Works now */}
                 </button>
                 <p className="text-sm font-light text-gray-500 dark:text-gray-400">
                   Don’t have an account yet?{" "}
