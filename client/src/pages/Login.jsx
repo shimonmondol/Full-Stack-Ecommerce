@@ -28,8 +28,11 @@ const Login = () => {
 
       localStorage.setItem("userdata", JSON.stringify(userData));
       dispatch(userLoginInfo(userData));
-      toast.success("Login Successful");
-      navigate("/");
+      toast.success("Login Successfully", {
+        position: "top-center",
+        autoClose: 3000,
+        onClose: () => navigate("/"),
+      });
     } catch (error) {
       console.error("Login failed:", error);
       toast.error("Invalid email or password");
@@ -38,7 +41,7 @@ const Login = () => {
 
   return (
     <div>
-      <ToastContainer transition={Bounce} />
+      <ToastContainer/>
       <section className="bg-gray-50 dark:bg-black">
         <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
           <div className="w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700">
@@ -93,7 +96,7 @@ const Login = () => {
                 </div>
                 <button
                   type="submit"
-                  className="w-full text-white bg-black cursor-pointer hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
+                  className="w-full text-white bg-black cursor-pointer font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
                 >
                   Login
                 </button>

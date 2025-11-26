@@ -1,44 +1,65 @@
 import { useState } from "react";
 import axios from "axios";
 import { Link, useNavigate } from "react-router";
-import { ToastContainer } from "react-toastify";
+import { ToastContainer, toast } from "react-toastify";
 import { useDispatch } from "react-redux";
 import { userLoginInfo } from "../../slices/userslice";
+
 
 const Signup = () => {
   const [fullname, setFullname] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [loading, setLoading] = useState(false);
+
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const baseurl = import.meta.env.VITE_BASE_URL;
 
-  const handlesignup = (e) => {
+  const handlesignup = async (e) => {
     e.preventDefault();
-    axios
-      .post(`${baseurl}/auth/signup`, {
+    setLoading(true);
+    try {
+      const res = await axios.post(`${baseurl}/auth/signup`, {
         name: fullname,
         email,
         password,
-      })
-      .then((res) => {
-        console.log(res);
-
-        localStorage.setItem("userdata", JSON.stringify(res.data.data));
-        // toast("Wow so easy!");
-        dispatch(userLoginInfo(userLoginInfo(res.data.data)));
-        navigate("/otp");
-      })
-      .catch((err) => {
-        console.log(err);
       });
+
+      // Save user data in localStorage
+      localStorage.setItem("userdata", JSON.stringify(res.data.data));
+
+      // Update Redux state
+      dispatch(userLoginInfo(res.data.data));
+
+      toast.success("SignUp Successful", {
+        position: "top-center",
+        autoClose: 4000,
+      });
+
+      // Navigate after 4 seconds (same as toast autoClose)
+      setTimeout(() => navigate("/login"), 4000);
+    } catch (error) {
+      if (error.response && error.response.data?.message) {
+        toast.error(error.response.data.message, {
+          position: "top-center",
+        });
+      } else {
+        toast.error("Signup failed. Please try again.", {
+          position: "top-center",
+        });
+      }
+    } finally {
+      setLoading(false);
+    }
   };
+
   return (
     <div>
       <section className="bg-white dark:bg-black">
         <ToastContainer />
         <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
-          <div className="w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700">
+          <div className="w-full bg-white rounded-lg shadow md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700">
             <div className="p-6 space-y-4 md:space-y-6 sm:p-8">
               <h1 className="text-2xl text-center font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
                 Sign Up
@@ -46,23 +67,22 @@ const Signup = () => {
               <form
                 onSubmit={handlesignup}
                 className="space-y-4 md:space-y-6"
-                action="#"
               >
                 <div>
                   <label
-                    htmlFor="email"
+                    htmlFor="fullname"
                     className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
                   >
                     Full Name
                   </label>
                   <input
                     onChange={(e) => setFullname(e.target.value)}
-                    type="fullname"
-                    name="name"
-                    id="name"
-                    className="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                    type="text"
+                    name="fullname"
+                    id="fullname"
+                    className="bg-gray-50 border border-gray-300 rounded-lg focus:outline-none w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:text-white"
                     placeholder="Shimon Mondol"
-                    required=""
+                    required
                   />
                 </div>
                 <div>
@@ -77,9 +97,9 @@ const Signup = () => {
                     type="email"
                     name="email"
                     id="email"
-                    className="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                    className="bg-gray-50 border border-gray-300 rounded-lg focus:outline-none w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:text-white"
                     placeholder="name@company.com"
-                    required=""
+                    required
                   />
                 </div>
                 <div>
@@ -95,26 +115,19 @@ const Signup = () => {
                     name="password"
                     id="password"
                     placeholder="••••••••"
-                    className="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                    required=""
+                    className="bg-gray-50 border border-gray-300 rounded-lg focus:outline-none w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:text-white"
+                    required
                   />
-                </div>
-                <div className="flex items-center justify-between">
-                  <a
-                    href="#"
-                    className="text-sm font-medium text-primary-600 hover:underline dark:text-primary-500"
-                  >
-                    Forgot Password?
-                  </a>
                 </div>
                 <button
                   type="submit"
-                  className="w-full text-white bg-black cursor-pointer hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
+                  disabled={loading}
+                  className="w-full text-white bg-black cursor-pointer font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800 disabled:opacity-50"
                 >
-                  Sign Up
+                  {loading ? "Signing Up..." : "Sign Up"}
                 </button>
                 <p className="text-sm font-light text-gray-500 dark:text-gray-400">
-                  Don’t have an account yet?{" "}
+                  Already have an account?{" "}
                   <Link
                     to="/login"
                     className="font-medium text-primary-600 hover:underline dark:text-primary-500"
