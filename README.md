@@ -6,13 +6,12 @@ Baraz eCommerce is a modern full-stack eCommerce web application that allows use
 
 - Url: https://wondrous-biscuit-27b2a1.netlify.app/
 
-## ✨ Features
+## ✨ Main Features
 
 - 🔐 User Authentication (Login/Register)
 - 👤 User Profile Management
 - 🛍️ Product Listing & Details
 - 🔍 Product Search & Filtering
-- ❤️ Wishlist
 - 🛒 Shopping Cart
 - 💳 Checkout System
 - 📦 Order Management
@@ -71,36 +70,7 @@ npm install
 npm run dev
 ```
 
-## 🔑 Environment Variables
-
-Create a `.env` file inside the server directory.
-
-```env
-PORT=5000
-
-MONGODB_URI=your_database_url
-
-JWT_SECRET=your_secret_key
-
-CLIENT_URL=http://localhost:5173
-``
-
-
-## 📌 Future Improvements
-
-- Online Payment Integration
-- Product Reviews & Ratings
-- Admin Dashboard
-- Coupon System
-- Email Notifications
-- Order Tracking
-- Multi-language Support
-
----
-
-## 👨‍💻 Author
-
-**Shimon Mondol**
+## 👨‍💻 Author **Shimon Mondol**
 
 - GitHub: https://github.com/shimonmondol
 - LinkedIn: https://linkedin.com/in/your-linkedin
