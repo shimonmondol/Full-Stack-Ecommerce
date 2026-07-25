@@ -2,9 +2,13 @@
 
 Baraz eCommerce is a modern full-stack eCommerce web application that allows users to browse products, manage their shopping cart, place orders, and securely authenticate. It is built with a scalable architecture using React, Node.js, Express, and MongoDB.
 
-## 🚀 Live Demo
+## 🌐 Live Demo
 
-- Url: https://wondrous-biscuit-27b2a1.netlify.app/
+https://wondrous-biscuit-27b2a1.netlify.app/
+
+## 📂 Repository
+
+https://github.com/shimonmondol/Full-Stack-Ecommerce
 
 ## ✨ Main Features
 
@@ -70,20 +74,16 @@ npm install
 npm run dev
 ```
 
-## 👨‍💻 Author **Shimon Mondol**
-
-- GitHub: https://github.com/shimonmondol
-- LinkedIn: https://linkedin.com/in/your-linkedin
-- Portfolio: https://shimondev.netlify.app/
-
-
-
----
-
 ## 📄 License
 
 This project is licensed under the Author License.
 
----
+## 👨‍💻 Author
 
-⭐ If you like this project, don't forget to give it a star on GitHub!
+**Shimon Mondol**
+
+- GitHub: https://github.com/shimonmondol
+- LinkedIn: https://www.linkedin.com/in/shimon-mondol/
+- Portfolio: https://shimondev.netlify.app/
+
+⭐ If you like this project, don't forget to give it a star!
